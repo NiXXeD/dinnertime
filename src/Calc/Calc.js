@@ -4,11 +4,11 @@ import Checkbox from 'material-ui/Checkbox'
 import SelectField from 'material-ui/SelectField'
 import Subheader from 'material-ui/Subheader'
 import MenuItem from 'material-ui/MenuItem'
-import TextField from 'material-ui/TextField'
 import './Calc.css'
 
 const minPrice = -5
 const maxPrice = 20
+const unitPrices = [...Array(26)].map((v, i) => i - 5)
 
 class Calc extends React.Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class Calc extends React.Component {
         }
     }
 
-    unitPriceChanged = (event, unitPrice) => {
+    unitPriceChanged = (event, index, unitPrice) => {
         this.setState({
             unitPrice: +unitPrice,
             unitPriceError: (unitPrice > maxPrice || unitPrice < minPrice) &&
@@ -58,15 +58,15 @@ class Calc extends React.Component {
                 <Subheader style={{paddingLeft: 0}}>Dinnertime Calculator</Subheader>
 
                 {/* Unit Price */}
-                <TextField
+                <SelectField
                     floatingLabelText="Unit Price"
-                    errorText={this.state.unitPriceError}
-                    type="Number"
                     value={this.state.unitPrice}
                     onChange={this.unitPriceChanged}
-                    min={minPrice}
-                    max={maxPrice}
-                />
+                >
+                    {unitPrices.map(unitPrice => {
+                        return <MenuItem key={unitPrice} value={unitPrice} primaryText={`$${unitPrice}`}/>
+                    })}
+                </SelectField>
 
                 {/* Items Sold */}
                 <SelectField

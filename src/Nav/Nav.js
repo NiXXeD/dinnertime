@@ -3,7 +3,9 @@ import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
 import githubSvg from './github.svg'
 
-const githubUrl = 'https://github.com/NiXXeD/dinnertime'
+const githubIcon = <IconButton target="_blank" href="https://github.com/NiXXeD/dinnertime">
+    <img alt="github link" src={githubSvg}/>
+</IconButton>
 
 class Nav extends React.PureComponent {
     render() {
@@ -11,7 +13,7 @@ class Nav extends React.PureComponent {
             <AppBar
                 showMenuIconButton={false}
                 title="Food Chain Magnate"
-                iconElementRight={<IconButton target="_blank" href={githubUrl}><img src={githubSvg}/></IconButton>}
+                iconElementRight={githubIcon}
             />
         )
     }
