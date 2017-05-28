@@ -15,10 +15,11 @@ class Calc extends React.Component {
         super(props)
 
         this.state = {
-            unitPrice: 10,
+            bonus: 0,
+            cfo: false,
             garden: false,
             sales: 1,
-            bonus: 0
+            unitPrice: 10
         }
     }
 
@@ -46,12 +47,14 @@ class Calc extends React.Component {
     }
 
     bonusChanged = (event, index, bonus) => this.setState({bonus})
+    cfoChanged = (event, cfo) => this.setState({cfo})
 
     render() {
         let unit = this.state.unitPrice * this.state.sales
-        let garden = this.state.garden ? 2 : 1
         let bonus = this.state.bonus * 5
-        let profit = (unit * garden) + bonus
+        let garden = this.state.garden ? 2 : 1
+        let cfo = this.state.cfo ? 1.5 : 1
+        let profit = Math.ceil(((unit * garden) + bonus) * cfo)
 
         return (
             <Card className="Calc">
@@ -97,6 +100,9 @@ class Calc extends React.Component {
 
                 {/* Garden House */}
                 <Checkbox label="Garden House" style={{marginTop: 8}} onCheck={this.gardenChanged}/>
+
+                {/* CFO Bonus */}
+                <Checkbox label="CFO Bonus" style={{marginTop: 8}} onCheck={this.cfoChanged}/>
 
                 {/* Profit */}
                 <div className="CalcProfit">
