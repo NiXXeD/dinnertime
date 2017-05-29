@@ -9,6 +9,9 @@ import './Calc.css'
 const minPrice = -5
 const maxPrice = 20
 const unitPrices = [...Array(26)].map((v, i) => i - 5)
+    .map(unitPrice => {
+        return <MenuItem key={unitPrice} value={unitPrice} primaryText={`$${unitPrice}`}/>
+    })
 
 class Calc extends React.Component {
     constructor(props) {
@@ -64,11 +67,10 @@ class Calc extends React.Component {
                 <SelectField
                     floatingLabelText="Unit Price"
                     value={this.state.unitPrice}
+                    maxHeight={300}
                     onChange={this.unitPriceChanged}
                 >
-                    {unitPrices.map(unitPrice => {
-                        return <MenuItem key={unitPrice} value={unitPrice} primaryText={`$${unitPrice}`}/>
-                    })}
+                    {unitPrices}
                 </SelectField>
 
                 {/* Items Sold */}
