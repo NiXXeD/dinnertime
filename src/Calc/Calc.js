@@ -1,6 +1,7 @@
 import React from 'react'
 import {Card} from 'material-ui/Card'
 import Checkbox from 'material-ui/Checkbox'
+import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
 import Subheader from 'material-ui/Subheader'
 import MenuItem from 'material-ui/MenuItem'
@@ -9,21 +10,20 @@ import './Calc.css'
 const minPrice = -5
 const maxPrice = 20
 const unitPrices = [...Array(26)].map((v, i) => i - 5)
-    .map(unitPrice => {
-        return <MenuItem key={unitPrice} value={unitPrice} primaryText={`$${unitPrice}`}/>
-    })
+    .map(unitPrice => <MenuItem key={unitPrice} value={unitPrice} primaryText={`$${unitPrice}`}/>)
+const defaultState = {
+    bonus: 0,
+    cfo: false,
+    garden: false,
+    sales: 1,
+    unitPrice: 10
+}
 
 class Calc extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            bonus: 0,
-            cfo: false,
-            garden: false,
-            sales: 1,
-            unitPrice: 10
-        }
+        this.state = defaultState
     }
 
     unitPriceChanged = (event, index, unitPrice) => {
@@ -51,6 +51,7 @@ class Calc extends React.Component {
 
     bonusChanged = (event, index, bonus) => this.setState({bonus})
     cfoChanged = (event, cfo) => this.setState({cfo})
+    resetClicked = () => this.setState(defaultState)
 
     render() {
         let unit = this.state.unitPrice * this.state.sales
@@ -101,13 +102,31 @@ class Calc extends React.Component {
                 </SelectField>
 
                 {/* Garden House */}
-                <Checkbox label="Garden House" style={{marginTop: 8}} onCheck={this.gardenChanged}/>
+                <Checkbox
+                    label="Garden House"
+                    style={{marginTop: 8}}
+                    checked={this.state.garden}
+                    onCheck={this.gardenChanged}
+                />
 
                 {/* CFO Bonus */}
-                <Checkbox label="CFO Bonus" style={{marginTop: 8}} onCheck={this.cfoChanged}/>
+                <Checkbox
+                    label="CFO Bonus"
+                    style={{marginTop: 8}}
+                    checked={this.state.cfo}
+                    onCheck={this.cfoChanged}
+                />
+
+                {/* Reset Button */}
+                <FlatButton
+                    className="Reset"
+                    label="Reset"
+                    secondary={true}
+                    onClick={this.resetClicked}
+                />
 
                 {/* Profit */}
-                <div className="CalcProfit">
+                <div className="Profit">
                     <div className="subheader">Profit</div>
                     <div className="dollars">{`$${profit}`}</div>
                 </div>

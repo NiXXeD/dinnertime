@@ -4,23 +4,27 @@
     max-width: 290px;
 }
 
-.CalcDivider {
-    margin: 16px 0 16px 0 !important;
+.Profit {
+    width: calc(100% - 100px);
+    right: 0;
+    display: inline-block;
 }
 
-.CalcProfit {
-    margin-right: 3px;
-}
-
-.CalcProfit .subheader {
+.Profit .subheader {
     margin-top: 16px;
     text-align: right;
     color: rgba(255, 255, 255, 0.54);
 }
 
-.CalcProfit .dollars {
+.Profit .dollars {
     font-size: 38px;
     font-weight: bold;
     color: darkgreen;
     text-align: right;
+}
+
+.Reset {
+    display: inline-block;
+    bottom: 12px;
+    left: 0;
 }
