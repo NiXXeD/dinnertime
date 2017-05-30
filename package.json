@@ -1,7 +1,7 @@
 {
   "name": "dinnertime",
   "description": "A small calculator for Food Chain Magnate's Dinnertime phase.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Andy Christianson",
   "repository": {
     "type": "git",
