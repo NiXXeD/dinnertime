@@ -7,8 +7,6 @@ import Subheader from 'material-ui/Subheader'
 import MenuItem from 'material-ui/MenuItem'
 import './Calc.css'
 
-const minPrice = -5
-const maxPrice = 20
 const unitPrices = [...Array(26)].map((v, i) => i - 5)
     .map(unitPrice => <MenuItem key={unitPrice} value={unitPrice} primaryText={`$${unitPrice}`}/>)
 const defaultState = {
@@ -22,34 +20,13 @@ const defaultState = {
 class Calc extends React.Component {
     constructor(props) {
         super(props)
-
         this.state = defaultState
     }
 
-    unitPriceChanged = (event, index, unitPrice) => {
-        this.setState({
-            unitPrice: +unitPrice,
-            unitPriceError: (unitPrice > maxPrice || unitPrice < minPrice) &&
-            `Unit Price must be between ${minPrice} and ${maxPrice}`
-        })
-    }
-
-    gardenChanged = (event, garden) => {
-        this.setState({
-            garden,
-            sales: this.state.sales > 3 ? 3 : this.state.sales,
-            bonus: this.state.bonus > 3 ? 3 : this.state.bonus
-        })
-    }
-
-    salesChanged = (event, index, sales) => {
-        this.setState({
-            sales,
-            bonus: this.state.bonus > sales ? sales : this.state.bonus
-        })
-    }
-
+    gardenChanged = (event, garden) => this.setState({garden})
+    salesChanged = (event, index, sales) => this.setState({sales})
     bonusChanged = (event, index, bonus) => this.setState({bonus})
+    unitPriceChanged = (event, index, unitPrice) => this.setState({unitPrice})
     cfoChanged = (event, cfo) => this.setState({cfo})
     resetClicked = () => this.setState(defaultState)
 
@@ -59,6 +36,15 @@ class Calc extends React.Component {
         let garden = this.state.garden ? 2 : 1
         let cfo = this.state.cfo ? 1.5 : 1
         let profit = Math.ceil(((unit * garden) + bonus) * cfo)
+
+        let salesError
+        let bonusError
+        if (!this.state.garden && this.state.sales > 3) {
+            salesError = 'Items sold must be at most 3 for regular house.'
+        }
+        if (this.state.bonus > this.state.sales) {
+            bonusError = 'Marketing bonuses must not exceed items sold.'
+        }
 
         return (
             <Card className="Calc">
@@ -79,12 +65,13 @@ class Calc extends React.Component {
                     floatingLabelText="Items Sold"
                     value={this.state.sales}
                     onChange={this.salesChanged}
+                    errorText={salesError}
                 >
                     <MenuItem value={1} primaryText="1 item sold"/>
                     <MenuItem value={2} primaryText="2 items sold"/>
                     <MenuItem value={3} primaryText="3 items sold"/>
-                    {this.state.garden && <MenuItem value={4} primaryText="4 items sold"/>}
-                    {this.state.garden && <MenuItem value={5} primaryText="5 items sold"/>}
+                    <MenuItem value={4} primaryText="4 items sold"/>
+                    <MenuItem value={5} primaryText="5 items sold"/>
                 </SelectField>
 
                 {/* Bonus Sales */}
@@ -92,13 +79,14 @@ class Calc extends React.Component {
                     floatingLabelText="Marketing Bonuses"
                     value={this.state.bonus}
                     onChange={this.bonusChanged}
+                    errorText={bonusError}
                 >
                     <MenuItem value={0} primaryText="0 bonuses"/>
                     <MenuItem value={1} primaryText="1 bonus"/>
-                    {this.state.sales > 1 && <MenuItem value={2} primaryText="2 bonuses"/>}
-                    {this.state.sales > 2 && <MenuItem value={3} primaryText="3 bonuses"/>}
-                    {this.state.garden && this.state.sales > 3 && <MenuItem value={4} primaryText="4 bonuses"/>}
-                    {this.state.garden && this.state.sales > 4 && <MenuItem value={5} primaryText="5 bonuses"/>}
+                    <MenuItem value={2} primaryText="2 bonuses"/>
+                    <MenuItem value={3} primaryText="3 bonuses"/>
+                    <MenuItem value={4} primaryText="4 bonuses"/>
+                    <MenuItem value={5} primaryText="5 bonuses"/>
                 </SelectField>
 
                 {/* Garden House */}
