@@ -1,3 +1,13 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/NiXXeD/dinnertime/compare/v1.0.0...v1.1.0) (2017-06-05)
+
+
+### Features
+
+* Add setup helper page. ([01d4ef9](https://github.com/NiXXeD/dinnertime/commit/01d4ef9))
+
+
+
 <a name="1.0.0"></a>
 # 1.0.0 (2017-05-30)
 
