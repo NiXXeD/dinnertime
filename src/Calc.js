@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
 import Subheader from 'material-ui/Subheader'
 import MenuItem from 'material-ui/MenuItem'
-import './Calc.css'
 
 const unitPrices = [...Array(26)].map((v, i) => i - 5)
     .map(unitPrice => <MenuItem key={unitPrice} value={unitPrice} primaryText={`$${unitPrice}`}/>)
@@ -47,14 +46,14 @@ class Calc extends React.Component {
         }
 
         return (
-            <Card className="Calc">
+            <Card style={cardStyle}>
                 <Subheader style={{paddingLeft: 0}}>Dinnertime Calculator</Subheader>
 
                 {/* Unit Price */}
                 <SelectField
                     floatingLabelText="Unit Price"
                     value={this.state.unitPrice}
-                    maxHeight={300}
+                    maxHeight={250}
                     onChange={this.unitPriceChanged}
                 >
                     {unitPrices}
@@ -107,20 +106,51 @@ class Calc extends React.Component {
 
                 {/* Reset Button */}
                 <FlatButton
-                    className="Reset"
+                    style={resetButtonStyle}
                     label="Reset"
                     secondary={true}
                     onClick={this.resetClicked}
                 />
 
                 {/* Profit */}
-                <div className="Profit">
-                    <div className="subheader">Profit</div>
-                    <div className="dollars">{`$${profit}`}</div>
+                <div style={profitStyle}>
+                    <div style={profitSubheaderStyle}>Profit</div>
+                    <div style={profitDollarsStyle}>{`$${profit}`}</div>
                 </div>
             </Card>
         )
     }
+}
+
+const cardStyle = {
+    margin: '16px',
+    padding: '16px',
+    maxWidth: '290px'
+}
+
+const resetButtonStyle = {
+    display: 'inline-block',
+    bottom: '12px',
+    left: 0
+}
+
+const profitStyle = {
+    width: 'calc(100% - 100px)',
+    display: 'inline-block',
+    right: 0
+}
+
+const profitSubheaderStyle = {
+    marginTop: '16px',
+    textAlign: 'right',
+    color: 'rgba(255, 255, 255, 0.54)'
+}
+
+const profitDollarsStyle = {
+    fontSize: '38px',
+    fontWeight: 'bold',
+    color: 'darkgreen',
+    textAlign: 'right'
 }
 
 export default Calc
