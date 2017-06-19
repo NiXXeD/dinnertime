@@ -3,6 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import {HashRouter, Route} from 'react-router-dom'
+import history from './history'
 
 import Nav from './Nav'
 import Calc from './Calc'
@@ -11,7 +12,7 @@ import Setup from './Setup'
 class App extends React.Component {
     render() {
         return (
-            <HashRouter>
+            <HashRouter history={history}>
                 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                     <div>
                         <Nav/>

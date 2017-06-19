@@ -8,6 +8,7 @@
     "url": "https://github.com/NiXXeD/dinnertime"
   },
   "dependencies": {
+    "history": "4.6.2",
     "material-ui": "0.18.3",
     "react": "15.6.0",
     "react-dom": "15.6.0",

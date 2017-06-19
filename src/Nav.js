@@ -4,7 +4,7 @@ import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import githubSvg from './github.svg'
-import {NavLink} from 'react-router-dom'
+import history from './history'
 
 const githubIcon = <IconButton target="_blank" href="https://github.com/NiXXeD/dinnertime">
     <img alt="github link" src={githubSvg}/>
@@ -22,7 +22,10 @@ class Nav extends React.PureComponent {
     }
 
     toggleDrawer = () => this.setState({open: !this.state.open})
-    handleClick = () => this.setState({open: false})
+    handleClick = url => {
+        history.push(url)
+        this.setState({open: false})
+    }
     requestChange = open => this.setState({open})
 
     render() {
@@ -38,11 +41,9 @@ class Nav extends React.PureComponent {
                     <AppBar showMenuIconButton={false} title="FCM Helper" style={{marginBottom: '24px'}}/>
 
                     {navLinks.map(navLink => (
-                        <NavLink to={navLink.url} key={navLink.url} style={{textDecoration: 'none'}}>
-                            <MenuItem onTouchTap={this.handleClick}>
-                                {navLink.text}
-                            </MenuItem>
-                        </NavLink>
+                        <MenuItem key={navLink.url} onTouchTap={() => this.handleClick(navLink.url)}>
+                            {navLink.text}
+                        </MenuItem>
                     ))}
                 </Drawer>
             </div>
