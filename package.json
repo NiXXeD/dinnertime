@@ -8,15 +8,15 @@
     "url": "https://github.com/NiXXeD/dinnertime"
   },
   "dependencies": {
-    "history": "4.6.2",
-    "material-ui": "0.18.3",
-    "react": "15.6.0",
-    "react-dom": "15.6.0",
+    "history": "^4.6.3",
+    "material-ui": "^0.18.6",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-router-dom": "4.1.1",
     "react-tap-event-plugin": "2.0.1"
   },
   "devDependencies": {
-    "react-scripts": "1.0.7"
+    "react-scripts": "^1.0.10"
   },
   "scripts": {
     "start": "react-scripts start",
