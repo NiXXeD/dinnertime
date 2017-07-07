@@ -7,6 +7,7 @@ import history from './history'
 
 import Nav from './Nav'
 import Calc from './Calc'
+import BulkCalc from './BulkCalc'
 import Setup from './Setup'
 
 class App extends React.Component {
@@ -19,6 +20,7 @@ class App extends React.Component {
 
                         <Route exact path="/" component={Calc}/>
                         <Route path="/calc" component={Calc}/>
+                        <Route path="/bulk" component={BulkCalc}/>
                         <Route path="/setup" component={Setup}/>
                     </div>
                 </MuiThemeProvider>

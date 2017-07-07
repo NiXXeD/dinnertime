@@ -9,3 +9,16 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
 ReactDOM.render(<App/>, document.getElementById('root'))
+
+function render(Component) {
+    ReactDOM.render(<Component/>, document.getElementById('root'))
+}
+
+render(App)
+
+if (module.hot) {
+    module.hot.accept('./App', () => {
+        const next = require('./App').default
+        render(next)
+    })
+}

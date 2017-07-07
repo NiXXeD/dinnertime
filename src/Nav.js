@@ -6,15 +6,6 @@ import IconButton from 'material-ui/IconButton'
 import githubSvg from './github.svg'
 import history from './history'
 
-const githubIcon = <IconButton target="_blank" href="https://github.com/NiXXeD/dinnertime">
-    <img alt="github link" src={githubSvg}/>
-</IconButton>
-
-const navLinks = [
-    {url: '/calc', text: 'Dinnertime Calculator'},
-    {url: '/setup', text: 'Setup Reference'}
-]
-
 class Nav extends React.PureComponent {
     constructor(props) {
         super(props)
@@ -50,5 +41,17 @@ class Nav extends React.PureComponent {
         )
     }
 }
+
+const githubIcon = (
+    <IconButton target="_blank" href="https://github.com/NiXXeD/dinnertime">
+        <img alt="github link" src={githubSvg}/>
+    </IconButton>
+)
+
+const navLinks = [
+    {url: '/calc', text: 'Dinnertime Calculator'},
+    {url: '/bulk', text: 'Bulk Sale Calculator'},
+    {url: '/setup', text: 'Setup Reference'}
+]
 
 export default Nav

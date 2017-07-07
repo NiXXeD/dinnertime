@@ -5,16 +5,7 @@ import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
 import Subheader from 'material-ui/Subheader'
 import MenuItem from 'material-ui/MenuItem'
-
-const unitPrices = [...Array(26)].map((v, i) => i - 5)
-    .map(unitPrice => <MenuItem key={unitPrice} value={unitPrice} primaryText={`$${unitPrice}`}/>)
-const defaultState = {
-    bonus: 0,
-    cfo: false,
-    garden: false,
-    sales: 1,
-    unitPrice: 10
-}
+import UnitPrices from './UnitPrices'
 
 class Calc extends React.Component {
     constructor(props) {
@@ -50,14 +41,7 @@ class Calc extends React.Component {
                 <Subheader style={{paddingLeft: 0}}>Dinnertime Calculator</Subheader>
 
                 {/* Unit Price */}
-                <SelectField
-                    floatingLabelText="Unit Price"
-                    value={this.state.unitPrice}
-                    maxHeight={250}
-                    onChange={this.unitPriceChanged}
-                >
-                    {unitPrices}
-                </SelectField>
+                <UnitPrices value={this.state.unitPrice} onChange={this.unitPriceChanged}/>
 
                 {/* Items Sold */}
                 <SelectField
@@ -120,6 +104,14 @@ class Calc extends React.Component {
             </Card>
         )
     }
+}
+
+const defaultState = {
+    bonus: 0,
+    cfo: false,
+    garden: false,
+    sales: 1,
+    unitPrice: 10
 }
 
 const cardStyle = {
