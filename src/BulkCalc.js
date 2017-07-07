@@ -22,7 +22,7 @@ class BulkCalc extends React.Component {
         let normalProfit = normalSales * unitPrice
         let gardenProfit = gardenSales * unitPrice * 2
         let marketingProfit = (marketingBonuses * 5)
-        let profit = cfoMultiplier * (normalProfit + gardenProfit + marketingProfit)
+        let profit = Math.ceil(cfoMultiplier * (normalProfit + gardenProfit + marketingProfit))
 
         return (
             <Card style={cardStyle}>
