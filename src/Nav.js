@@ -13,7 +13,7 @@ class Nav extends React.PureComponent {
     }
 
     toggleDrawer = () => this.setState({open: !this.state.open})
-    handleClick = url => {
+    handleClick = url => () => {
         history.push(url)
         this.setState({open: false})
     }
@@ -32,7 +32,7 @@ class Nav extends React.PureComponent {
                     <AppBar showMenuIconButton={false} title="FCM Helper" style={{marginBottom: '24px'}}/>
 
                     {navLinks.map(navLink => (
-                        <MenuItem key={navLink.url} onTouchTap={() => this.handleClick(navLink.url)}>
+                        <MenuItem key={navLink.url} onClick={this.handleClick(navLink.url)}>
                             {navLink.text}
                         </MenuItem>
                     ))}
