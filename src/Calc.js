@@ -1,106 +1,97 @@
 import React from 'react'
-import {Card} from 'material-ui/Card'
-import Checkbox from 'material-ui/Checkbox'
-import FlatButton from 'material-ui/FlatButton'
-import SelectField from 'material-ui/SelectField'
-import Subheader from 'material-ui/Subheader'
-import MenuItem from 'material-ui/MenuItem'
+import {withStyles} from 'material-ui-next/styles'
+import Card, {CardActions, CardContent, CardHeader} from 'material-ui-next/Card'
+import {FormGroup, FormControl, FormControlLabel, FormHelperText} from 'material-ui-next/Form'
+import Select from 'material-ui-next/Select'
+import Input, {InputLabel} from 'material-ui-next/Input'
+import Switch from 'material-ui-next/Switch'
+import Button from 'material-ui-next/Button'
+import {MenuItem} from 'material-ui-next/Menu'
 import UnitPrices from './UnitPrices'
+import Profit from './Profit'
 
 class Calc extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = defaultState
+    state = {...defaultState}
+
+    handleChange = name => event => this.setState({[name]: event.target.value})
+    handleCheckChange = name => event => this.setState({[name]: event.target.checked})
+    handleReset = () => this.setState({...defaultState})
+
+    get profit() {
+        const unit = this.state.unitPrice * this.state.sales
+        const bonus = this.state.bonus * 5
+        const garden = this.state.garden ? 2 : 1
+        const cfo = this.state.cfo ? 1.5 : 1
+        return Math.ceil(((unit * garden) + bonus) * cfo)
     }
 
-    gardenChanged = (event, garden) => this.setState({garden})
-    salesChanged = (event, index, sales) => this.setState({sales})
-    bonusChanged = (event, index, bonus) => this.setState({bonus})
-    unitPriceChanged = (event, index, unitPrice) => this.setState({unitPrice})
-    cfoChanged = (event, cfo) => this.setState({cfo})
-    resetClicked = () => this.setState(defaultState)
-
     render() {
-        let unit = this.state.unitPrice * this.state.sales
-        let bonus = this.state.bonus * 5
-        let garden = this.state.garden ? 2 : 1
-        let cfo = this.state.cfo ? 1.5 : 1
-        let profit = Math.ceil(((unit * garden) + bonus) * cfo)
-
-        let salesError
-        let bonusError
-        if (!this.state.garden && this.state.sales > 3) {
-            salesError = 'Items sold must be at most 3 for regular house.'
-        }
-        if (this.state.bonus > this.state.sales) {
-            bonusError = 'Marketing bonuses must not exceed items sold.'
-        }
+        const {classes} = this.props
+        const {bonus, cfo, garden, sales, unitPrice} = this.state
+        const salesError = !this.state.garden && this.state.sales > 3
+        const bonusError = this.state.bonus > this.state.sales
 
         return (
-            <Card style={cardStyle}>
-                <Subheader style={{paddingLeft: 0}}>Dinnertime Calculator</Subheader>
+            <Card className={classes.card}>
+                <CardHeader title="Dinnertime Calculator"/>
+                <CardContent>
+                    <FormGroup>
+                        {/*Unit Price */}
+                        <UnitPrices
+                            className={classes.select}
+                            value={unitPrice}
+                            onChange={this.handleChange('unitPrice')}
+                        />
 
-                {/* Unit Price */}
-                <UnitPrices value={this.state.unitPrice} onChange={this.unitPriceChanged}/>
+                        {/* Items Sold */}
+                        <FormControl className={classes.select} error={salesError}>
+                            <InputLabel htmlFor="sales">Items Sold</InputLabel>
+                            <Select
+                                value={sales}
+                                onChange={this.handleChange('sales')}
+                                input={<Input id="sales"/>}
+                            >
+                                {[1, 2, 3, 4, 5].map(count =>
+                                    <MenuItem key={count} value={count}>{`${count} item(s) sold`}</MenuItem>)
+                                }
+                            </Select>
+                            {salesError && <FormHelperText>Items sold must be at most 3 for regular house.</FormHelperText>}
+                        </FormControl>
 
-                {/* Items Sold */}
-                <SelectField
-                    floatingLabelText="Items Sold"
-                    value={this.state.sales}
-                    onChange={this.salesChanged}
-                    errorText={salesError}
-                >
-                    <MenuItem value={1} primaryText="1 item sold"/>
-                    <MenuItem value={2} primaryText="2 items sold"/>
-                    <MenuItem value={3} primaryText="3 items sold"/>
-                    <MenuItem value={4} primaryText="4 items sold"/>
-                    <MenuItem value={5} primaryText="5 items sold"/>
-                </SelectField>
+                        {/* Bonus Sales */}
+                        <FormControl className={classes.select} error={bonusError}>
+                            <InputLabel htmlFor="bonus">Marketing Bonuses</InputLabel>
+                            <Select
+                                value={bonus}
+                                onChange={this.handleChange('bonus')}
+                                input={<Input id="bonus"/>}
+                            >
+                                {[0, 1, 2, 3, 4, 5].map(count =>
+                                    <MenuItem key={count} value={count}>{`${count} bonus(es)`}</MenuItem>)
+                                }
+                            </Select>
+                            {bonusError && <FormHelperText>Marketing bonuses may not exceed items sold.</FormHelperText>}
+                        </FormControl>
 
-                {/* Bonus Sales */}
-                <SelectField
-                    floatingLabelText="Marketing Bonuses"
-                    value={this.state.bonus}
-                    onChange={this.bonusChanged}
-                    errorText={bonusError}
-                >
-                    <MenuItem value={0} primaryText="0 bonuses"/>
-                    <MenuItem value={1} primaryText="1 bonus"/>
-                    <MenuItem value={2} primaryText="2 bonuses"/>
-                    <MenuItem value={3} primaryText="3 bonuses"/>
-                    <MenuItem value={4} primaryText="4 bonuses"/>
-                    <MenuItem value={5} primaryText="5 bonuses"/>
-                </SelectField>
+                        {/* Garden House */}
+                        <FormControlLabel
+                            className={classes.switch}
+                            control={<Switch checked={garden} onChange={this.handleCheckChange('garden')}/>}
+                            label="Garden House"
+                        />
 
-                {/* Garden House */}
-                <Checkbox
-                    label="Garden House"
-                    style={{marginTop: 8}}
-                    checked={this.state.garden}
-                    onCheck={this.gardenChanged}
-                />
-
-                {/* CFO Bonus */}
-                <Checkbox
-                    label="CFO Bonus"
-                    style={{marginTop: 8}}
-                    checked={this.state.cfo}
-                    onCheck={this.cfoChanged}
-                />
-
-                {/* Reset Button */}
-                <FlatButton
-                    style={resetButtonStyle}
-                    label="Reset"
-                    secondary={true}
-                    onClick={this.resetClicked}
-                />
-
-                {/* Profit */}
-                <div style={profitStyle}>
-                    <div style={profitSubheaderStyle}>Profit</div>
-                    <div style={profitDollarsStyle}>{`$${profit}`}</div>
-                </div>
+                        {/* CFO Bonus */}
+                        <FormControlLabel
+                            className={classes.switch}
+                            control={<Switch checked={cfo} onChange={this.handleCheckChange('cfo')}/>}
+                            label="CFO Bonus"
+                        />
+                    </FormGroup>
+                </CardContent>
+                <CardActions>
+                    <Button color="accent" onClick={this.handleReset}>Reset</Button>
+                    <Profit value={this.profit}/>
+                </CardActions>
             </Card>
         )
     }
@@ -114,35 +105,34 @@ const defaultState = {
     unitPrice: 10
 }
 
-const cardStyle = {
-    margin: '16px',
-    padding: '16px',
-    maxWidth: '290px'
-}
+const styles = theme => ({
+    card: {
+        margin: 16,
+        maxWidth: 275
+    },
+    select: {
+        marginBottom: 24
+    },
+    switch: {
+        marginTop: -6
+    },
+    profitContainer: {
+        marginRight: 16,
+        marginBottom: 16,
+        width: '100%',
+        display: 'inline-block',
+        right: 0
+    },
+    profitSubheader: {
+        textAlign: 'right',
+        color: 'rgba(255, 255, 255, 0.54)'
+    },
+    profitDollars: {
+        fontSize: '38px',
+        fontWeight: 'bold',
+        color: 'darkgreen',
+        textAlign: 'right'
+    }
+})
 
-const resetButtonStyle = {
-    display: 'inline-block',
-    bottom: '12px',
-    left: 0
-}
-
-const profitStyle = {
-    width: 'calc(100% - 100px)',
-    display: 'inline-block',
-    right: 0
-}
-
-const profitSubheaderStyle = {
-    marginTop: '16px',
-    textAlign: 'right',
-    color: 'rgba(255, 255, 255, 0.54)'
-}
-
-const profitDollarsStyle = {
-    fontSize: '38px',
-    fontWeight: 'bold',
-    color: 'darkgreen',
-    textAlign: 'right'
-}
-
-export default Calc
+export default withStyles(styles)(Calc)

@@ -1,8 +1,62 @@
 import React from 'react'
-import {Card} from 'material-ui/Card'
-import Subheader from 'material-ui/Subheader'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import {withStyles} from 'material-ui-next/styles'
+import Card, {CardContent, CardHeader} from 'material-ui-next/Card'
+import Select from 'material-ui-next/Select'
+import {MenuItem} from 'material-ui-next/Menu'
+import Typography from 'material-ui-next/Typography'
+import Input, {InputLabel} from 'material-ui-next/Input'
+import {FormGroup, FormControl} from 'material-ui-next/Form'
+
+class Setup extends React.Component {
+    state = {players: 2}
+
+    handleChange = name => event => this.setState({[name]: event.target.value})
+
+    render() {
+        const {classes} = this.props
+        const {players} = this.state
+        const data = playerData[players]
+
+        return (
+            <Card className={classes.card}>
+                <CardHeader title="Setup Reference"/>
+                <CardContent>
+                    <FormGroup>
+                        {/* Players */}
+                        <FormControl>
+                            <InputLabel htmlFor="players">Players</InputLabel>
+                            <Select
+                                value={players}
+                                onChange={this.handleChange('players')}
+                                input={<Input id="players"/>}
+                            >
+                                {[2, 3, 4, 5].map(count =>
+                                    <MenuItem key={count} value={count}>{`${count} players`}</MenuItem>)
+                                }
+                            </Select>
+                        </FormControl>
+
+                        {/* Map Size */}
+                        <Typography type="subheading" className={classes.subheading}>Map Size</Typography>
+                        <Typography type="body1">{data.mapSize}</Typography>
+
+                        {/* 1x Employees */}
+                        <Typography type="subheading" className={classes.subheading}>1x Employees</Typography>
+                        <Typography type="body1">{data.employees}</Typography>
+
+                        {/* Billboards Removed */}
+                        <Typography type="subheading" className={classes.subheading}>Billboards Removed</Typography>
+                        <Typography type="body1">{data.billboards}</Typography>
+
+                        {/* Reserve */}
+                        <Typography type="subheading" className={classes.subheading}>Reserve</Typography>
+                        <Typography type="body1">{data.reserve}</Typography>
+                    </FormGroup>
+                </CardContent>
+            </Card>
+        )
+    }
+}
 
 const playerData = {
     2: {
@@ -31,61 +85,15 @@ const playerData = {
     }
 }
 
-const players = [...Array(4)].map((v, i) => i + 2)
-    .map(players => <MenuItem key={players} value={players} primaryText={`${players} players`}/>)
-
-class Setup extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {players: 2}
+const styles = theme => ({
+    card: {
+        margin: 16,
+        maxWidth: 225
+    },
+    subheading: {
+        marginTop: 16,
+        color: theme.palette.text.secondary
     }
+})
 
-    playersChanged = (event, index, players) => this.setState({players})
-
-    render() {
-        let data = playerData[this.state.players]
-
-        return (
-            <Card style={setupCardStyle}>
-                <Subheader style={{paddingLeft: 0}}>Setup Reference</Subheader>
-
-                {/* Players */}
-                <SelectField
-                    floatingLabelText="Players"
-                    value={this.state.players}
-                    onChange={this.playersChanged}
-                >{players}</SelectField>
-
-                {/* Map Size */}
-                <Subheader style={subheaderStyle}>Map Size</Subheader>
-                <span>{data.mapSize}</span>
-
-                {/* 1x Employees */}
-                <Subheader style={subheaderStyle}>1x Employees</Subheader>
-                <span>{data.employees}</span>
-
-                {/* Billboards Removed */}
-                <Subheader style={subheaderStyle}>Billboards Removed</Subheader>
-                <span>{data.billboards}</span>
-
-                {/* Reserve */}
-                <Subheader style={subheaderStyle}>Reserve</Subheader>
-                <span>{data.reserve}</span>
-            </Card>
-        )
-    }
-}
-
-const setupCardStyle = {
-    margin: '16px',
-    padding: '16px',
-    maxWidth: '300px'
-}
-
-const subheaderStyle = {
-    paddingLeft: 0,
-    lineHeight: '24px',
-    marginTop: '12px'
-}
-
-export default Setup
+export default withStyles(styles)(Setup)

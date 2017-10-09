@@ -1,81 +1,87 @@
 import React from 'react'
-import {Card} from 'material-ui/Card'
-import Checkbox from 'material-ui/Checkbox'
-import FlatButton from 'material-ui/FlatButton'
-import Subheader from 'material-ui/Subheader'
-import TextField from 'material-ui/TextField'
+import {withStyles} from 'material-ui-next/styles'
+import Card, {CardActions, CardContent, CardHeader} from 'material-ui-next/Card'
+import {FormGroup, FormControlLabel} from 'material-ui-next/Form'
+import Switch from 'material-ui-next/Switch'
+import Button from 'material-ui-next/Button'
+import TextField from 'material-ui-next/TextField'
 import UnitPrices from './UnitPrices'
+import Profit from './Profit'
 
 class BulkCalc extends React.Component {
-    state = defaultState
+    state = {...defaultState}
 
-    unitPriceChanged = (event, index, unitPrice) => this.setState({unitPrice})
-    normalSalesChanged = (event, normalSales) => this.setState({normalSales})
-    gardenSalesChanged = (event, gardenSales) => this.setState({gardenSales})
-    marketingBonusesChanged = (event, marketingBonuses) => this.setState({marketingBonuses})
-    cfoChanged = (event, cfo) => this.setState({cfo})
-    resetClicked = () => this.setState(defaultState)
+    handleChange = name => event => this.setState({[name]: event.target.value})
+    handleCheckChange = name => event => this.setState({[name]: event.target.checked})
+    handleReset = () => this.setState({...defaultState})
+
+    get profit() {
+        const {unitPrice, cfo, normalSales, gardenSales, marketingBonuses} = this.state
+        const cfoMultiplier = cfo ? 1.5 : 1
+        const normalProfit = normalSales * unitPrice
+        const gardenProfit = gardenSales * unitPrice * 2
+        const marketingProfit = (marketingBonuses * 5)
+        return Math.ceil(cfoMultiplier * (normalProfit + gardenProfit + marketingProfit))
+    }
 
     render() {
-        let {unitPrice, cfo, normalSales, gardenSales, marketingBonuses} = this.state
-        let cfoMultiplier = cfo ? 1.5 : 1
-        let normalProfit = normalSales * unitPrice
-        let gardenProfit = gardenSales * unitPrice * 2
-        let marketingProfit = (marketingBonuses * 5)
-        let profit = Math.ceil(cfoMultiplier * (normalProfit + gardenProfit + marketingProfit))
+        const {classes} = this.props
+        const {unitPrice, cfo, normalSales, gardenSales, marketingBonuses} = this.state
 
         return (
-            <Card style={cardStyle}>
-                <Subheader style={{paddingLeft: 0}}>Bulk Sale Calculator</Subheader>
+            <Card className={classes.card}>
+                <CardHeader title="Bulk Sale Calculator"/>
+                <CardContent>
+                    <FormGroup>
+                        {/* Unit Price */}
+                        <UnitPrices
+                            className={classes.field}
+                            value={unitPrice}
+                            onChange={this.handleChange('unitPrice')}
+                        />
 
-                {/* Unit Price */}
-                <UnitPrices value={this.state.unitPrice} onChange={this.unitPriceChanged}/>
+                        {/* Normal Sales */}
+                        <TextField
+                            className={classes.field}
+                            name="normalSales"
+                            label="Normal Sales"
+                            value={normalSales}
+                            type="number"
+                            onChange={this.handleChange('normalSales')}
+                        />
 
-                {/* Normal Sales */}
-                <TextField
-                    type="number"
-                    floatingLabelText="Normal Sales"
-                    value={this.state.normalSales}
-                    onChange={this.normalSalesChanged}
-                />
+                        {/* Garden Sales */}
+                        <TextField
+                            className={classes.field}
+                            name="gardenSales"
+                            label="Garden Sales"
+                            value={gardenSales}
+                            type="number"
+                            onChange={this.handleChange('gardenSales')}
+                        />
 
-                {/* Garden Sales */}
-                <TextField
-                    type="number"
-                    floatingLabelText="Garden Sales"
-                    value={this.state.gardenSales}
-                    onChange={this.gardenSalesChanged}
-                />
+                        {/* Marketing Bonuses */}
+                        <TextField
+                            className={classes.field}
+                            name="marketingBonuses"
+                            label="Marketing Bonuses"
+                            value={marketingBonuses}
+                            type="number"
+                            onChange={this.handleChange('marketingBonuses')}
+                        />
 
-                {/* Marketing Bonuses */}
-                <TextField
-                    type="number"
-                    floatingLabelText="Marketing Bonuses"
-                    value={this.state.marketingBonuses}
-                    onChange={this.marketingBonusesChanged}
-                />
-
-                {/* CFO Bonus */}
-                <Checkbox
-                    label="CFO Bonus"
-                    style={{marginTop: 8}}
-                    checked={this.state.cfo}
-                    onCheck={this.cfoChanged}
-                />
-
-                {/* Reset Button */}
-                <FlatButton
-                    style={resetButtonStyle}
-                    label="Reset"
-                    secondary={true}
-                    onClick={this.resetClicked}
-                />
-
-                {/* Profit */}
-                <div style={profitStyle}>
-                    <div style={profitSubheaderStyle}>Profit</div>
-                    <div style={profitDollarsStyle}>{`$${profit}`}</div>
-                </div>
+                        {/* CFO Bonus */}
+                        <FormControlLabel
+                            className={classes.switch}
+                            control={<Switch checked={cfo} onChange={this.handleCheckChange('cfo')}/>}
+                            label="CFO Bonus"
+                        />
+                    </FormGroup>
+                </CardContent>
+                <CardActions>
+                    <Button color="accent" onClick={this.handleReset}>Reset</Button>
+                    <Profit value={this.profit}/>
+                </CardActions>
             </Card>
         )
     }
@@ -89,35 +95,17 @@ const defaultState = {
     cfo: false
 }
 
-const cardStyle = {
-    margin: '16px',
-    padding: '16px',
-    maxWidth: '290px'
-}
+const styles = theme => ({
+    card: {
+        margin: 16,
+        maxWidth: 275
+    },
+    field: {
+        marginBottom: 24
+    },
+    switch: {
+        marginTop: -6
+    }
+})
 
-const resetButtonStyle = {
-    display: 'inline-block',
-    bottom: '12px',
-    left: 0
-}
-
-const profitStyle = {
-    width: 'calc(100% - 100px)',
-    display: 'inline-block',
-    right: 0
-}
-
-const profitSubheaderStyle = {
-    marginTop: '16px',
-    textAlign: 'right',
-    color: 'rgba(255, 255, 255, 0.54)'
-}
-
-const profitDollarsStyle = {
-    fontSize: '38px',
-    fontWeight: 'bold',
-    color: 'darkgreen',
-    textAlign: 'right'
-}
-
-export default BulkCalc
+export default withStyles(styles)(BulkCalc)

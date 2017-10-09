@@ -6,11 +6,8 @@ import IconButton from 'material-ui/IconButton'
 import githubSvg from './github.svg'
 import history from './history'
 
-class Nav extends React.PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {open: false}
-    }
+class Nav extends React.Component {
+    state = {open: false}
 
     toggleDrawer = () => this.setState({open: !this.state.open})
     handleClick = url => () => {

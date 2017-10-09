@@ -1,23 +1,28 @@
 import React from 'react'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import Select from 'material-ui-next/Select'
+import {MenuItem} from 'material-ui-next/Menu'
+import {FormControl} from 'material-ui-next/Form'
+import Input, {InputLabel} from 'material-ui-next/Input'
 
 class UnitPrices extends React.Component {
     render() {
+        const {className, onChange, value} = this.props
+
         return (
-            <SelectField
-                floatingLabelText="Unit Price"
-                value={this.props.value}
-                maxHeight={250}
-                onChange={this.props.onChange}
-            >
-                {unitPrices}
-            </SelectField>
+            <FormControl className={className}>
+                <InputLabel htmlFor="unitPrice">Unit Price</InputLabel>
+                <Select
+                    value={value}
+                    onChange={onChange}
+                    input={<Input id="unitPrice"/>}
+                >
+                    {[...new Array(26)].map((v, i) => i - 5).map(unitPrice =>
+                        <MenuItem key={unitPrice} value={unitPrice}>{`$${unitPrice}`}</MenuItem>)
+                    }
+                </Select>
+            </FormControl>
         )
     }
 }
-
-const unitPrices = [...Array(26)].map((v, i) => i - 5)
-    .map(unitPrice => <MenuItem key={unitPrice} value={unitPrice} primaryText={`$${unitPrice}`}/>)
 
 export default UnitPrices
