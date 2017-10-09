@@ -9,9 +9,8 @@
     "url": "https://github.com/NiXXeD/dinnertime"
   },
   "dependencies": {
-    "history": "^4.6.3",
-    "material-ui": "^0.19.3",
-    "material-ui-next": "npm:material-ui@next",
+    "material-ui": "^1.0.0-beta.16",
+    "material-ui-icons": "^1.0.0-beta.15",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "4.2.2"

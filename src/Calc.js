@@ -1,12 +1,12 @@
 import React from 'react'
-import {withStyles} from 'material-ui-next/styles'
-import Card, {CardActions, CardContent, CardHeader} from 'material-ui-next/Card'
-import {FormGroup, FormControl, FormControlLabel, FormHelperText} from 'material-ui-next/Form'
-import Select from 'material-ui-next/Select'
-import Input, {InputLabel} from 'material-ui-next/Input'
-import Switch from 'material-ui-next/Switch'
-import Button from 'material-ui-next/Button'
-import {MenuItem} from 'material-ui-next/Menu'
+import {withStyles} from 'material-ui/styles'
+import Card, {CardActions, CardContent, CardHeader} from 'material-ui/Card'
+import {FormGroup, FormControl, FormControlLabel, FormHelperText} from 'material-ui/Form'
+import Select from 'material-ui/Select'
+import Input, {InputLabel} from 'material-ui/Input'
+import Switch from 'material-ui/Switch'
+import Button from 'material-ui/Button'
+import {MenuItem} from 'material-ui/Menu'
 import UnitPrices from './UnitPrices'
 import Profit from './Profit'
 
@@ -115,23 +115,6 @@ const styles = theme => ({
     },
     switch: {
         marginTop: -6
-    },
-    profitContainer: {
-        marginRight: 16,
-        marginBottom: 16,
-        width: '100%',
-        display: 'inline-block',
-        right: 0
-    },
-    profitSubheader: {
-        textAlign: 'right',
-        color: 'rgba(255, 255, 255, 0.54)'
-    },
-    profitDollars: {
-        fontSize: '38px',
-        fontWeight: 'bold',
-        color: 'darkgreen',
-        textAlign: 'right'
     }
 })
 

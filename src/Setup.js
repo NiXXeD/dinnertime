@@ -1,11 +1,11 @@
 import React from 'react'
-import {withStyles} from 'material-ui-next/styles'
-import Card, {CardContent, CardHeader} from 'material-ui-next/Card'
-import Select from 'material-ui-next/Select'
-import {MenuItem} from 'material-ui-next/Menu'
-import Typography from 'material-ui-next/Typography'
-import Input, {InputLabel} from 'material-ui-next/Input'
-import {FormGroup, FormControl} from 'material-ui-next/Form'
+import {withStyles} from 'material-ui/styles'
+import Card, {CardContent, CardHeader} from 'material-ui/Card'
+import Select from 'material-ui/Select'
+import {MenuItem} from 'material-ui/Menu'
+import Typography from 'material-ui/Typography'
+import Input, {InputLabel} from 'material-ui/Input'
+import {FormGroup, FormControl} from 'material-ui/Form'
 
 class Setup extends React.Component {
     state = {players: 2}

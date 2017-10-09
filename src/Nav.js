@@ -1,54 +1,80 @@
 import React from 'react'
+import {withStyles} from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
+import Toolbar from 'material-ui/Toolbar'
 import Drawer from 'material-ui/Drawer'
-import MenuItem from 'material-ui/MenuItem'
+import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
+import MenuIcon from 'material-ui-icons/Menu'
+import {MenuItem} from 'material-ui/Menu'
 import githubSvg from './github.svg'
-import history from './history'
+import {Link} from 'react-router-dom'
 
 class Nav extends React.Component {
     state = {open: false}
 
     toggleDrawer = () => this.setState({open: !this.state.open})
-    handleClick = url => () => {
-        history.push(url)
-        this.setState({open: false})
-    }
-    requestChange = open => this.setState({open})
 
     render() {
+        const {classes} = this.props
+
         return (
             <div>
-                <AppBar
-                    onLeftIconButtonTouchTap={this.toggleDrawer}
-                    title="Food Chain Magnate"
-                    iconElementRight={githubIcon}
-                />
+                <AppBar position="static" color="primary">
+                    <Toolbar className={classes.toolbar}>
+                        <IconButton
+                            className={classes.menuButton}
+                            onClick={this.toggleDrawer}
+                        >
+                            <MenuIcon/>
+                        </IconButton>
 
-                <Drawer docked={false} open={this.state.open} onRequestChange={this.requestChange}>
-                    <AppBar showMenuIconButton={false} title="FCM Helper" style={{marginBottom: '24px'}}/>
+                        <Typography type="title" className={classes.title}>Food Chain Magnate</Typography>
 
-                    {navLinks.map(navLink => (
-                        <MenuItem key={navLink.url} onClick={this.handleClick(navLink.url)}>
-                            {navLink.text}
-                        </MenuItem>
-                    ))}
+                        <IconButton target="_blank" href="https://github.com/NiXXeD/dinnertime">
+                            <img alt="github link" width="24" height="24" src={githubSvg}/>
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
+
+                <Drawer open={this.state.open} onRequestClose={this.toggleDrawer} className={classes.drawer}>
+                    <AppBar position="static" color="primary" className={classes.drawerAppBar}>
+                        <Toolbar>
+                            <Typography type="title" className={classes.title}>FCM Helper</Typography>
+                        </Toolbar>
+                    </AppBar>
+
+                    <MenuItem href="/#/calc" onClick={this.toggleDrawer}>
+                        <Link className={classes.menuItem} to="/calc">Dinnertime Calculator</Link>
+                    </MenuItem>
+                    <MenuItem href="/#/bulk" onClick={this.toggleDrawer}>
+                        <Link className={classes.menuItem} to="/bulk">Bulk Sale Calculator</Link>
+                    </MenuItem>
+                    <MenuItem href="/#/setup" onClick={this.toggleDrawer}>
+                        <Link className={classes.menuItem} to="/setup">Setup Reference</Link>
+                    </MenuItem>
                 </Drawer>
             </div>
         )
     }
 }
 
-const githubIcon = (
-    <IconButton target="_blank" href="https://github.com/NiXXeD/dinnertime">
-        <img alt="github link" src={githubSvg}/>
-    </IconButton>
-)
+const styles = theme => ({
+    drawerAppBar: {
+        marginBottom: 24
+    },
+    toolbar: {
+        paddingLeft: 8,
+        paddingRight: 8
+    },
+    title: {
+        paddingLeft: 12,
+        flex: 1
+    },
+    menuItem: {
+        textDecoration: 'none',
+        color: 'inherit'
+    }
+})
 
-const navLinks = [
-    {url: '/calc', text: 'Dinnertime Calculator'},
-    {url: '/bulk', text: 'Bulk Sale Calculator'},
-    {url: '/setup', text: 'Setup Reference'}
-]
-
-export default Nav
+export default withStyles(styles)(Nav)
