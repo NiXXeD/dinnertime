@@ -10,10 +10,10 @@ import {MenuItem} from 'material-ui/Menu'
 import githubSvg from './github.svg'
 import {Link} from 'react-router-dom'
 
-class Nav extends React.Component {
+class Nav extends React.PureComponent {
     state = {open: false}
 
-    toggleDrawer = () => this.setState({open: !this.state.open})
+    toggleDrawer = () => setTimeout(() => this.setState({open: !this.state.open}))
 
     render() {
         const {classes} = this.props
@@ -44,15 +44,15 @@ class Nav extends React.Component {
                         </Toolbar>
                     </AppBar>
 
-                    <MenuItem href="/#/calc" onClick={this.toggleDrawer}>
-                        <Link className={classes.menuItem} to="/calc">Dinnertime Calculator</Link>
-                    </MenuItem>
-                    <MenuItem href="/#/bulk" onClick={this.toggleDrawer}>
-                        <Link className={classes.menuItem} to="/bulk">Bulk Sale Calculator</Link>
-                    </MenuItem>
-                    <MenuItem href="/#/setup" onClick={this.toggleDrawer}>
-                        <Link className={classes.menuItem} to="/setup">Setup Reference</Link>
-                    </MenuItem>
+                    <Link className={classes.menuItem} to="/calc">
+                        <MenuItem onClick={this.toggleDrawer}>Dinnertime Calculator</MenuItem>
+                    </Link>
+                    <Link className={classes.menuItem} to="/bulk">
+                        <MenuItem onClick={this.toggleDrawer}>Bulk Sale Calculator</MenuItem>
+                    </Link>
+                    <Link className={classes.menuItem} to="/setup">
+                        <MenuItem onClick={this.toggleDrawer}>Setup Reference</MenuItem>
+                    </Link>
                 </Drawer>
             </div>
         )
