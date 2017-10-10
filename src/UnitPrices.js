@@ -15,6 +15,13 @@ class UnitPrices extends React.Component {
                     value={value}
                     onChange={onChange}
                     input={<Input id="unitPrice"/>}
+                    MenuProps={{
+                        MenuListProps: {
+                            style: {
+                                maxHeight: 256
+                            }
+                        }
+                    }}
                 >
                     {[...new Array(26)].map((v, i) => i - 5).map(unitPrice =>
                         <MenuItem key={unitPrice} value={unitPrice}>{`$${unitPrice}`}</MenuItem>)
