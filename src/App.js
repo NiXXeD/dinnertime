@@ -2,10 +2,11 @@ import React from 'react'
 import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles'
 import {BrowserRouter, Route} from 'react-router-dom'
 
-import Nav from './Nav'
-import Calc from './Calc'
-import BulkCalc from './BulkCalc'
-import Setup from './Setup'
+import Nav from './nav/Nav'
+import Calc from './calc/Calc'
+import BulkCalc from './calc/BulkCalc'
+import Setup from './setup/Setup'
+import Milestones from './milestones/Milestones'
 
 const theme = createMuiTheme({
     palette: {
@@ -25,6 +26,7 @@ class App extends React.Component {
                         <Route path="/calc" component={Calc}/>
                         <Route path="/bulk" component={BulkCalc}/>
                         <Route path="/setup" component={Setup}/>
+                        <Route path="/milestones" component={Milestones}/>
                     </div>
                 </MuiThemeProvider>
             </BrowserRouter>

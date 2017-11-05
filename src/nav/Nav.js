@@ -53,6 +53,9 @@ class Nav extends React.PureComponent {
                     <Link className={classes.menuItem} to="/setup">
                         <MenuItem onClick={this.toggleDrawer}>Setup Reference</MenuItem>
                     </Link>
+                    <Link className={classes.menuItem} to="/milestones">
+                        <MenuItem onClick={this.toggleDrawer}>Milestone Tracker</MenuItem>
+                    </Link>
                 </Drawer>
             </div>
         )
