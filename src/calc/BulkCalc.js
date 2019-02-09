@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -12,83 +12,88 @@ import TextField from '@material-ui/core/TextField'
 import UnitPrices from './UnitPrices'
 import Profit from './Profit'
 
-class BulkCalc extends React.Component {
-    state = {...defaultState}
+function BulkCalc({classes}) {
+    const [unitPrice, setUnitPrice] = useState(defaultState.unitPrice)
+    const [normalSales, setNormalSales] = useState(defaultState.normalSales)
+    const [gardenSales, setGardenSales] = useState(defaultState.gardenSales)
+    const [marketingBonuses, setMarketingBonuses] = useState(defaultState.marketingBonuses)
+    const [cfo, setCfo] = useState(defaultState.cfo)
 
-    handleChange = name => event => this.setState({[name]: event.target.value})
-    handleCheckChange = name => event => this.setState({[name]: event.target.checked})
-    handleReset = () => this.setState({...defaultState})
+    const cfoMultiplier = cfo ? 1.5 : 1
+    const normalProfit = normalSales * unitPrice
+    const gardenProfit = gardenSales * unitPrice * 2
+    const marketingProfit = (marketingBonuses * 5)
+    const profit = Math.ceil(cfoMultiplier * (normalProfit + gardenProfit + marketingProfit))
 
-    get profit() {
-        const {unitPrice, cfo, normalSales, gardenSales, marketingBonuses} = this.state
-        const cfoMultiplier = cfo ? 1.5 : 1
-        const normalProfit = normalSales * unitPrice
-        const gardenProfit = gardenSales * unitPrice * 2
-        const marketingProfit = (marketingBonuses * 5)
-        return Math.ceil(cfoMultiplier * (normalProfit + gardenProfit + marketingProfit))
+    const reset = () => {
+        setUnitPrice(defaultState.unitPrice)
+        setNormalSales(defaultState.normalSales)
+        setGardenSales(defaultState.gardenSales)
+        setMarketingBonuses(defaultState.marketingBonuses)
+        setCfo(defaultState.cfo)
     }
 
-    render() {
-        const {classes} = this.props
-        const {unitPrice, cfo, normalSales, gardenSales, marketingBonuses} = this.state
+    return (
+        <Card className={classes.card}>
+            <CardHeader title="Bulk Sale Calculator"/>
+            <CardContent>
+                <FormGroup>
+                    {/* Unit Price */}
+                    <UnitPrices
+                        className={classes.field}
+                        value={unitPrice}
+                        onChange={event => setUnitPrice(event.target.value)}
+                    />
 
-        return (
-            <Card className={classes.card}>
-                <CardHeader title="Bulk Sale Calculator"/>
-                <CardContent>
-                    <FormGroup>
-                        {/* Unit Price */}
-                        <UnitPrices
-                            className={classes.field}
-                            value={unitPrice}
-                            onChange={this.handleChange('unitPrice')}
-                        />
+                    {/* Normal Sales */}
+                    <TextField
+                        className={classes.field}
+                        name="normalSales"
+                        label="Normal Sales"
+                        value={normalSales}
+                        type="number"
+                        onChange={event => setNormalSales(event.target.value)}
+                    />
 
-                        {/* Normal Sales */}
-                        <TextField
-                            className={classes.field}
-                            name="normalSales"
-                            label="Normal Sales"
-                            value={normalSales}
-                            type="number"
-                            onChange={this.handleChange('normalSales')}
-                        />
+                    {/* Garden Sales */}
+                    <TextField
+                        className={classes.field}
+                        name="gardenSales"
+                        label="Garden Sales"
+                        value={gardenSales}
+                        type="number"
+                        onChange={event => setGardenSales(event.target.value)}
+                    />
 
-                        {/* Garden Sales */}
-                        <TextField
-                            className={classes.field}
-                            name="gardenSales"
-                            label="Garden Sales"
-                            value={gardenSales}
-                            type="number"
-                            onChange={this.handleChange('gardenSales')}
-                        />
+                    {/* Marketing Bonuses */}
+                    <TextField
+                        className={classes.field}
+                        name="marketingBonuses"
+                        label="Marketing Bonuses"
+                        value={marketingBonuses}
+                        type="number"
+                        onChange={event => setMarketingBonuses(event.target.value)}
+                    />
 
-                        {/* Marketing Bonuses */}
-                        <TextField
-                            className={classes.field}
-                            name="marketingBonuses"
-                            label="Marketing Bonuses"
-                            value={marketingBonuses}
-                            type="number"
-                            onChange={this.handleChange('marketingBonuses')}
-                        />
-
-                        {/* CFO Bonus */}
-                        <FormControlLabel
-                            className={classes.switch}
-                            control={<Switch checked={cfo} onChange={this.handleCheckChange('cfo')}/>}
-                            label="CFO Bonus"
-                        />
-                    </FormGroup>
-                </CardContent>
-                <CardActions>
-                    <Button color="secondary" onClick={this.handleReset}>Reset</Button>
-                    <Profit value={this.profit}/>
-                </CardActions>
-            </Card>
-        )
-    }
+                    {/* CFO Bonus */}
+                    <FormControlLabel
+                        className={classes.switch}
+                        label="CFO Bonus"
+                        control={
+                            <Switch
+                                checked={cfo}
+                                onChange={event => setCfo(event.target.checked)}
+                            />
+                        }
+                    />
+                </FormGroup>
+            </CardContent>
+            <CardActions>
+                <Button color="secondary" onClick={reset}>Reset</Button>
+                <Profit value={profit}/>
+            </CardActions>
+        </Card>
+    )
 }
 
 const defaultState = {

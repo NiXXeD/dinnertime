@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -10,94 +10,70 @@ import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormGroup from '@material-ui/core/FormGroup'
+import playerData from './playerData'
 
-class Setup extends React.Component {
-    state = {players: 2}
+function Setup({classes}) {
+    const [players, setPlayers] = useState(2)
+    const data = playerData[players]
 
-    handleChange = name => event => this.setState({[name]: event.target.value})
+    return (
+        <Card className={classes.card}>
+            <CardHeader title="Setup Reference"/>
+            <CardContent>
+                <FormGroup>
+                    {/* Players */}
+                    <FormControl>
+                        <InputLabel htmlFor="players">Players</InputLabel>
+                        <Select
+                            value={players}
+                            onChange={event => setPlayers(event.target.value)}
+                            input={<Input id="players"/>}
+                        >
+                            {
+                                Object.keys(playerData).map(count =>
+                                    <MenuItem key={count} value={count}>{`${count} players`}</MenuItem>
+                                )
+                            }
+                        </Select>
+                    </FormControl>
 
-    render() {
-        const {classes} = this.props
-        const {players} = this.state
-        const data = playerData[players]
+                    {/* Map Size */}
+                    <Typography variant="subtitle1" color="textSecondary" className={classes.subheading}>
+                        Map Size
+                    </Typography>
+                    <Typography variant="body2">{data.mapSize}</Typography>
 
-        return (
-            <Card className={classes.card}>
-                <CardHeader title="Setup Reference"/>
-                <CardContent>
-                    <FormGroup>
-                        {/* Players */}
-                        <FormControl>
-                            <InputLabel htmlFor="players">Players</InputLabel>
-                            <Select
-                                value={players}
-                                onChange={this.handleChange('players')}
-                                input={<Input id="players"/>}
-                            >
-                                {[2, 3, 4, 5].map(count =>
-                                    <MenuItem key={count} value={count}>{`${count} players`}</MenuItem>)
-                                }
-                            </Select>
-                        </FormControl>
+                    {/* 1x Employees */}
+                    <Typography variant="subtitle1" color="textSecondary" className={classes.subheading}>1x
+                        Employees
+                    </Typography>
+                    <Typography variant="body2">{data.employees}</Typography>
 
-                        {/* Map Size */}
-                        <Typography variant="subtitle1" className={classes.subheading}>Map Size</Typography>
-                        <Typography variant="body2">{data.mapSize}</Typography>
+                    {/* Billboards Removed */}
+                    <Typography variant="subtitle1" color="textSecondary" className={classes.subheading}>
+                        Billboards Removed</Typography>
+                    <Typography variant="body2">{data.billboards}
+                    </Typography>
 
-                        {/* 1x Employees */}
-                        <Typography variant="subtitle1" className={classes.subheading}>1x Employees</Typography>
-                        <Typography variant="body2">{data.employees}</Typography>
-
-                        {/* Billboards Removed */}
-                        <Typography variant="subtitle1" className={classes.subheading}>Billboards Removed</Typography>
-                        <Typography variant="body2">{data.billboards}</Typography>
-
-                        {/* Reserve */}
-                        <Typography variant="subtitle1" className={classes.subheading}>Reserve</Typography>
-                        <Typography variant="body2">{data.reserve}</Typography>
-                    </FormGroup>
-                </CardContent>
-            </Card>
-        )
-    }
+                    {/* Reserve */}
+                    <Typography variant="subtitle1" color="textSecondary" className={classes.subheading}>
+                        Reserve
+                    </Typography>
+                    <Typography variant="body2">{data.reserve}</Typography>
+                </FormGroup>
+            </CardContent>
+        </Card>
+    )
 }
 
-const playerData = {
-    2: {
-        mapSize: '3 x 3',
-        employees: '1',
-        billboards: '#2, #3, #12, #15, #16',
-        reserve: '$100'
-    },
-    3: {
-        mapSize: '3 x 4',
-        employees: '1',
-        billboards: '#2, #3, #15, #16',
-        reserve: '$150'
-    },
-    4: {
-        mapSize: '4 x 4',
-        employees: '2',
-        billboards: '#3, #16',
-        reserve: '$200'
-    },
-    5: {
-        mapSize: '4 x 5',
-        employees: '3',
-        billboards: 'None',
-        reserve: '$250'
-    }
-}
-
-const styles = theme => ({
+const styles = {
     card: {
         margin: 16,
         maxWidth: 225
     },
     subheading: {
-        marginTop: 16,
-        color: theme.palette.text.secondary
+        marginTop: 16
     }
-})
+}
 
 export default withStyles(styles)(Setup)

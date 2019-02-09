@@ -1,16 +1,13 @@
 import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
 
-class Profit extends React.Component {
-    render() {
-        const {classes, value = 0} = this.props
-        return (
-            <div className={classes.container}>
-                <div className={classes.subheader}>Profit</div>
-                <div className={classes.dollars}>{`$${value}`}</div>
-            </div>
-        )
-    }
+function Profit({classes, value = 0}) {
+    return (
+        <div className={classes.container}>
+            <div className={classes.subheader}>Profit</div>
+            <div className={classes.dollars}>{`$${value}`}</div>
+        </div>
+    )
 }
 
 const styles = theme => ({

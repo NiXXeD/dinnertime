@@ -1,9 +1,12 @@
 import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
 
-class Milestone extends React.Component {
-    handleClick = () => {
-        const {index, value, onChange} = this.props
+function Milestone(props) {
+    const {classes, milestone, value} = props
+    const {color, title, text} = milestone
+
+    const handleClick = () => {
+        const {index, value, onChange} = props
 
         let nextValue
         if (value === 'available') nextValue = 'mine'
@@ -13,25 +16,20 @@ class Milestone extends React.Component {
         return onChange(index, nextValue)
     }
 
-    render() {
-        const {classes, milestone, value} = this.props
-        const {color, title, text} = milestone
-
-        return (
-            <div
-                className={classes.milestone}
-                style={{backgroundColor: color}}
-                onClick={this.handleClick}
-            >
-                {value === 'mine' && <div className={classes.checkmark}>✓</div>}
-                {value === 'unavailable' && <div className={classes.x}>✗</div>}
-                <div className={classes.container}>
-                    <div className={classes.title}>First {title}</div>
-                    <div className={classes.text}>{text}</div>
-                </div>
+    return (
+        <div
+            className={classes.milestone}
+            style={{backgroundColor: color}}
+            onClick={handleClick}
+        >
+            {value === 'mine' && <div className={classes.checkmark}>✓</div>}
+            {value === 'unavailable' && <div className={classes.x}>✗</div>}
+            <div className={classes.container}>
+                <div className={classes.title}>First {title}</div>
+                <div className={classes.text}>{text}</div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 const styles = {

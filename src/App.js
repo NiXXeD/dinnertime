@@ -17,24 +17,22 @@ const theme = createMuiTheme({
     }
 })
 
-class App extends React.Component {
-    render() {
-        return (
-            <HashRouter basename={process.env.PUBLIC_URL}>
-                <MuiThemeProvider theme={theme}>
-                    <div>
-                        <Nav/>
+function App() {
+    return (
+        <HashRouter basename={process.env.PUBLIC_URL}>
+            <MuiThemeProvider theme={theme}>
+                <div>
+                    <Nav/>
 
-                        <Route exact path="/" component={Calc}/>
-                        <Route path="/calc" component={Calc}/>
-                        <Route path="/bulk" component={BulkCalc}/>
-                        <Route path="/setup" component={Setup}/>
-                        <Route path="/milestones" component={Milestones}/>
-                    </div>
-                </MuiThemeProvider>
-            </HashRouter>
-        )
-    }
+                    <Route exact path="/" component={Calc}/>
+                    <Route path="/calc" component={Calc}/>
+                    <Route path="/bulk" component={BulkCalc}/>
+                    <Route path="/setup" component={Setup}/>
+                    <Route path="/milestones" component={Milestones}/>
+                </div>
+            </MuiThemeProvider>
+        </HashRouter>
+    )
 }
 
 export default App

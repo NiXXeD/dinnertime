@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -17,102 +17,116 @@ import MenuItem from '@material-ui/core/MenuItem'
 import UnitPrices from './UnitPrices'
 import Profit from './Profit'
 
-class Calc extends React.Component {
-    state = {...defaultState}
+function Calc({classes}) {
+    const [bonusItemsSold, setBonusItemsSold] = useState(defaultState.bonusItemsSold)
+    const [cfo, setCfo] = useState(defaultState.cfo)
+    const [garden, setGarden] = useState(defaultState.garden)
+    const [itemsSold, setItemsSold] = useState(defaultState.itemsSold)
+    const [unitPrice, setUnitPrice] = useState(defaultState.unitPrice)
 
-    handleChange = name => event => this.setState({[name]: event.target.value})
-    handleCheckChange = name => event => this.setState({[name]: event.target.checked})
-    handleReset = () => this.setState({...defaultState})
+    const salesError = !garden && itemsSold > 3
+    const bonusError = bonusItemsSold > itemsSold
 
-    get profit() {
-        const unit = this.state.unitPrice * this.state.sales
-        const bonus = this.state.bonus * 5
-        const garden = this.state.garden ? 2 : 1
-        const cfo = this.state.cfo ? 1.5 : 1
-        return Math.ceil(((unit * garden) + bonus) * cfo)
+    const salesDollars = unitPrice * itemsSold
+    const bonusDollars = bonusItemsSold * 5
+    const gardenMultiplier = garden ? 2 : 1
+    const cfoMultiplier = cfo ? 1.5 : 1
+    const profit = Math.ceil(((salesDollars * gardenMultiplier) + bonusDollars) * cfoMultiplier)
+
+    const reset = () => {
+        setBonusItemsSold(defaultState.bonusItemsSold)
+        setCfo(defaultState.cfo)
+        setGarden(defaultState.garden)
+        setItemsSold(defaultState.itemsSold)
+        setUnitPrice(defaultState.unitPrice)
     }
 
-    render() {
-        const {classes} = this.props
-        const {bonus, cfo, garden, sales, unitPrice} = this.state
-        const salesError = !this.state.garden && this.state.sales > 3
-        const bonusError = this.state.bonus > this.state.sales
+    return (
+        <Card className={classes.card}>
+            <CardHeader title="Dinnertime Calculator"/>
+            <CardContent>
+                <FormGroup>
+                    {/*Unit Price */}
+                    <UnitPrices
+                        className={classes.select}
+                        value={unitPrice}
+                        onChange={event => setUnitPrice(event.target.value)}
+                    />
 
-        return (
-            <Card className={classes.card}>
-                <CardHeader title="Dinnertime Calculator"/>
-                <CardContent>
-                    <FormGroup>
-                        {/*Unit Price */}
-                        <UnitPrices
-                            className={classes.select}
-                            value={unitPrice}
-                            onChange={this.handleChange('unitPrice')}
-                        />
-
-                        {/* Items Sold */}
-                        <FormControl className={classes.select} error={salesError}>
-                            <InputLabel htmlFor="sales">Items Sold</InputLabel>
-                            <Select
-                                value={sales}
-                                onChange={this.handleChange('sales')}
-                                input={<Input id="sales"/>}
-                            >
-                                {[1, 2, 3, 4, 5].map(count =>
-                                    <MenuItem key={count} value={count}>{`${count} item(s) sold`}</MenuItem>)
-                                }
-                            </Select>
-                            {salesError &&
-                            <FormHelperText>Items sold must be at most 3 for regular house.</FormHelperText>}
-                        </FormControl>
-
-                        {/* Bonus Sales */}
-                        <FormControl className={classes.select} error={bonusError}>
-                            <InputLabel htmlFor="bonus">Marketing Bonuses</InputLabel>
-                            <Select
-                                value={bonus}
-                                onChange={this.handleChange('bonus')}
-                                input={<Input id="bonus"/>}
-                            >
-                                {[0, 1, 2, 3, 4, 5].map(count =>
-                                    <MenuItem key={count} value={count}>{`${count} bonus(es)`}</MenuItem>)
-                                }
-                            </Select>
-                            {
-                                bonusError &&
-                                <FormHelperText>Marketing bonuses may not exceed items sold.</FormHelperText>
+                    {/* Items Sold */}
+                    <FormControl className={classes.select} error={salesError}>
+                        <InputLabel htmlFor="sales">Items Sold</InputLabel>
+                        <Select
+                            value={itemsSold}
+                            onChange={event => setItemsSold(event.target.value)}
+                            input={<Input id="sales"/>}
+                        >
+                            {[1, 2, 3, 4, 5].map(count =>
+                                <MenuItem key={count} value={count}>{`${count} item(s) sold`}</MenuItem>)
                             }
-                        </FormControl>
+                        </Select>
+                        {
+                            salesError &&
+                            <FormHelperText>Items sold must be at most 3 for regular house.</FormHelperText>
+                        }
+                    </FormControl>
 
-                        {/* Garden House */}
-                        <FormControlLabel
-                            className={classes.switch}
-                            control={<Switch checked={garden} onChange={this.handleCheckChange('garden')}/>}
-                            label="Garden House"
-                        />
+                    {/* Bonus Sales */}
+                    <FormControl className={classes.select} error={bonusError}>
+                        <InputLabel htmlFor="bonus">Marketing Bonuses</InputLabel>
+                        <Select
+                            value={bonusItemsSold}
+                            onChange={event => setBonusItemsSold(event.target.value)}
+                            input={<Input id="bonus"/>}
+                        >
+                            {[0, 1, 2, 3, 4, 5].map(count =>
+                                <MenuItem key={count} value={count}>{`${count} bonus(es)`}</MenuItem>)
+                            }
+                        </Select>
+                        {
+                            bonusError &&
+                            <FormHelperText>Marketing bonuses may not exceed items sold.</FormHelperText>
+                        }
+                    </FormControl>
 
-                        {/* CFO Bonus */}
-                        <FormControlLabel
-                            className={classes.switch}
-                            control={<Switch checked={cfo} onChange={this.handleCheckChange('cfo')}/>}
-                            label="CFO Bonus"
-                        />
-                    </FormGroup>
-                </CardContent>
-                <CardActions>
-                    <Button color="secondary" onClick={this.handleReset}>Reset</Button>
-                    <Profit value={this.profit}/>
-                </CardActions>
-            </Card>
-        )
-    }
+                    {/* Garden House */}
+                    <FormControlLabel
+                        className={classes.switch}
+                        label="Garden House"
+                        control={
+                            <Switch
+                                checked={garden}
+                                onChange={event => setGarden(event.target.checked)}
+                            />
+                        }
+                    />
+
+                    {/* CFO Bonus */}
+                    <FormControlLabel
+                        className={classes.switch}
+                        label="CFO Bonus"
+                        control={
+                            <Switch
+                                checked={cfo}
+                                onChange={event => setCfo(event.target.checked)}
+                            />
+                        }
+                    />
+                </FormGroup>
+            </CardContent>
+            <CardActions>
+                <Button color="secondary" onClick={reset}>Reset</Button>
+                <Profit value={profit}/>
+            </CardActions>
+        </Card>
+    )
 }
 
 const defaultState = {
-    bonus: 0,
+    bonusItemsSold: 0,
     cfo: false,
     garden: false,
-    sales: 1,
+    itemsSold: 1,
     unitPrice: 10
 }
 

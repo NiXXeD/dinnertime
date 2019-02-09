@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -6,81 +6,66 @@ import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Button from '@material-ui/core/Button'
 import Masonry from 'react-masonry-component'
-import milestoneData from './milestoneData'
+import milestoneData, {localStorageKey, defaultMilestones} from './milestoneData'
 import Milestone from './Milestone'
 
-class Milestones extends React.Component {
-    state = {...defaultState}
-
-    componentDidMount() {
+function Milestones({classes}) {
+    const [milestones, setMilestones] = useState(() => {
         try {
-            let oldStorageData = localStorage.getItem(localStorageKey)
-            let milestones = JSON.parse(oldStorageData)
-            if (milestones) this.setState({milestones})
+            const oldStorageData = localStorage.getItem(localStorageKey)
+            return JSON.parse(oldStorageData)
         } catch (ex) {
             console.log('Error loading local storage data: ', ex)
             localStorage.removeItem(localStorageKey)
         }
-    }
+        return defaultMilestones
+    })
 
-    handleReset = () => {
-        this.setState({...defaultState})
+    useEffect(() => {
+        const data = JSON.stringify(milestones)
+        localStorage.setItem(localStorageKey, data)
+    }, [milestones])
+
+    const reset = () => {
+        setMilestones(defaultMilestones)
+
         localStorage.removeItem(localStorageKey)
     }
 
-    handleChange = (index, value) => {
-        this.setState(oldState => {
-            let milestones = [...oldState.milestones]
-            milestones[index] = value
-            this.saveLocal(milestones)
-            return {milestones}
-        })
+    const updateMilestones = (index, value) => {
+        const newMilestones = [...milestones]
+        newMilestones[index] = value
+        setMilestones(newMilestones)
     }
 
-    saveLocal(milestones) {
-        let data = JSON.stringify(milestones)
-        localStorage.setItem(localStorageKey, data)
-    }
-
-    render() {
-        const {classes} = this.props
-        const {milestones} = this.state
-
-        return (
-            <Card className={classes.card}>
-                <CardHeader title="Milestone Tracker"/>
-                <CardContent>
-                    <Masonry>
-                        {milestones.map((value, key) =>
-                            <Milestone
-                                key={key}
-                                index={key}
-                                milestone={milestoneData[key]}
-                                value={value}
-                                onChange={this.handleChange}
-                            />
-                        )}
-                    </Masonry>
-                </CardContent>
-                <CardActions>
-                    <Button color="secondary" onClick={this.handleReset}>Reset</Button>
-                </CardActions>
-            </Card>
-        )
-    }
+    return (
+        <Card className={classes.card}>
+            <CardHeader title="Milestone Tracker"/>
+            <CardContent>
+                <Masonry>
+                    {milestones.map((value, key) =>
+                        <Milestone
+                            key={key}
+                            index={key}
+                            milestone={milestoneData[key]}
+                            value={value}
+                            onChange={updateMilestones}
+                        />
+                    )}
+                </Masonry>
+            </CardContent>
+            <CardActions>
+                <Button color="secondary" onClick={reset}>Reset</Button>
+            </CardActions>
+        </Card>
+    )
 }
 
-const localStorageKey = 'milestones'
-
-const defaultState = {
-    milestones: milestoneData.map(milestone => ('available'))
-}
-
-const styles = theme => ({
+const styles = {
     card: {
         margin: 16,
         maxWidth: 850
     }
-})
+}
 
 export default withStyles(styles)(Milestones)

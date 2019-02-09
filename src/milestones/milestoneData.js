@@ -1,4 +1,4 @@
-export default [
+const milestoneData = [
     {color: '#AF95C2', title: 'to hire 3 people in 1 turn', text: '+2 Management Trainees'},
     {color: '#BDB6B3', title: 'to train someone', text: '$15 discount on salaries'},
     {color: '#98C2C9', title: 'billboard placed', text: 'No salaries for marketeers; Eternal marketing.'},
@@ -18,3 +18,7 @@ export default [
     {color: '#BDB6B3', title: 'to pay $20 or more in salaries', text: 'May use multiple trainers on the same person'},
     {color: '#98C2C9', title: 'radio campaign', text: 'Your radios market 2 goods per turn instead of 1'}
 ]
+
+export default milestoneData
+export const localStorageKey = 'milestones'
+export const defaultMilestones = milestoneData.map(() => 'available')
