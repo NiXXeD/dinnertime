@@ -1,5 +1,5 @@
 import React from 'react'
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles'
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 import {BrowserRouter, Route} from 'react-router-dom'
 
 import Nav from './nav/Nav'
@@ -11,6 +11,10 @@ import Milestones from './milestones/Milestones'
 const theme = createMuiTheme({
     palette: {
         type: 'dark'
+    },
+    // TODO: Remove. Workaround for unnecessary usage warning
+    typography: {
+        useNextVariants: true
     }
 })
 

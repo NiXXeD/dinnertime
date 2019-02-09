@@ -1,5 +1,5 @@
 import React from 'react'
-import {withStyles} from 'material-ui/styles'
+import {withStyles} from '@material-ui/core/styles'
 
 class Milestone extends React.Component {
     handleClick = () => {
@@ -34,7 +34,7 @@ class Milestone extends React.Component {
     }
 }
 
-const styles = theme => ({
+const styles = {
     milestone: {
         margin: 8,
         width: 145,
@@ -71,6 +71,6 @@ const styles = theme => ({
         left: 4,
         bottom: 0
     }
-})
+}
 
 export default withStyles(styles)(Milestone)

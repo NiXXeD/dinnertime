@@ -1,12 +1,12 @@
 import React from 'react'
-import {withStyles} from 'material-ui/styles'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import Drawer from 'material-ui/Drawer'
-import Typography from 'material-ui/Typography'
-import IconButton from 'material-ui/IconButton'
-import MenuIcon from 'material-ui-icons/Menu'
-import {MenuItem} from 'material-ui/Menu'
+import {withStyles} from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import Drawer from '@material-ui/core/Drawer'
 import githubSvg from './github.svg'
 import {Link} from 'react-router-dom'
 
@@ -19,7 +19,7 @@ class Nav extends React.PureComponent {
         const {classes} = this.props
 
         return (
-            <div>
+            <React.Fragment>
                 <AppBar position="static" color="primary">
                     <Toolbar className={classes.toolbar}>
                         <IconButton
@@ -29,7 +29,9 @@ class Nav extends React.PureComponent {
                             <MenuIcon/>
                         </IconButton>
 
-                        <Typography type="title" className={classes.title}>Food Chain Magnate</Typography>
+                        <Typography variant="h6" color="inherit" className={classes.title}>
+                            Food Chain Magnate
+                        </Typography>
 
                         <IconButton target="_blank" href="https://github.com/NiXXeD/dinnertime">
                             <img alt="github link" width="24" height="24" src={githubSvg}/>
@@ -37,10 +39,10 @@ class Nav extends React.PureComponent {
                     </Toolbar>
                 </AppBar>
 
-                <Drawer open={this.state.open} onRequestClose={this.toggleDrawer} className={classes.drawer}>
+                <Drawer open={this.state.open} onClose={this.toggleDrawer} className={classes.drawer}>
                     <AppBar position="static" color="primary" className={classes.drawerAppBar}>
                         <Toolbar>
-                            <Typography type="title" className={classes.title}>FCM Helper</Typography>
+                            <Typography variant="h6" className={classes.title}>FCM Helper</Typography>
                         </Toolbar>
                     </AppBar>
 
@@ -57,12 +59,12 @@ class Nav extends React.PureComponent {
                         <MenuItem onClick={this.toggleDrawer}>Milestone Tracker</MenuItem>
                     </Link>
                 </Drawer>
-            </div>
+            </React.Fragment>
         )
     }
 }
 
-const styles = theme => ({
+const styles = {
     drawerAppBar: {
         marginBottom: 24
     },
@@ -78,6 +80,6 @@ const styles = theme => ({
         textDecoration: 'none',
         color: 'inherit'
     }
-})
+}
 
 export default withStyles(styles)(Nav)

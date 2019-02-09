@@ -1,7 +1,10 @@
 import React from 'react'
-import {withStyles} from 'material-ui/styles'
-import Card, {CardActions, CardContent, CardHeader} from 'material-ui/Card'
-import Button from 'material-ui/Button'
+import {withStyles} from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader'
+import Button from '@material-ui/core/Button'
 import Masonry from 'react-masonry-component'
 import milestoneData from './milestoneData'
 import Milestone from './Milestone'
@@ -60,7 +63,7 @@ class Milestones extends React.Component {
                     </Masonry>
                 </CardContent>
                 <CardActions>
-                    <Button color="accent" onClick={this.handleReset}>Reset</Button>
+                    <Button color="secondary" onClick={this.handleReset}>Reset</Button>
                 </CardActions>
             </Card>
         )

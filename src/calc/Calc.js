@@ -1,12 +1,19 @@
 import React from 'react'
-import {withStyles} from 'material-ui/styles'
-import Card, {CardActions, CardContent, CardHeader} from 'material-ui/Card'
-import {FormGroup, FormControl, FormControlLabel, FormHelperText} from 'material-ui/Form'
-import Select from 'material-ui/Select'
-import Input, {InputLabel} from 'material-ui/Input'
-import Switch from 'material-ui/Switch'
-import Button from 'material-ui/Button'
-import {MenuItem} from 'material-ui/Menu'
+import {withStyles} from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import Select from '@material-ui/core/Select'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import Switch from '@material-ui/core/Switch'
+import Button from '@material-ui/core/Button'
+import MenuItem from '@material-ui/core/MenuItem'
 import UnitPrices from './UnitPrices'
 import Profit from './Profit'
 
@@ -55,7 +62,8 @@ class Calc extends React.Component {
                                     <MenuItem key={count} value={count}>{`${count} item(s) sold`}</MenuItem>)
                                 }
                             </Select>
-                            {salesError && <FormHelperText>Items sold must be at most 3 for regular house.</FormHelperText>}
+                            {salesError &&
+                            <FormHelperText>Items sold must be at most 3 for regular house.</FormHelperText>}
                         </FormControl>
 
                         {/* Bonus Sales */}
@@ -70,7 +78,10 @@ class Calc extends React.Component {
                                     <MenuItem key={count} value={count}>{`${count} bonus(es)`}</MenuItem>)
                                 }
                             </Select>
-                            {bonusError && <FormHelperText>Marketing bonuses may not exceed items sold.</FormHelperText>}
+                            {
+                                bonusError &&
+                                <FormHelperText>Marketing bonuses may not exceed items sold.</FormHelperText>
+                            }
                         </FormControl>
 
                         {/* Garden House */}
@@ -89,7 +100,7 @@ class Calc extends React.Component {
                     </FormGroup>
                 </CardContent>
                 <CardActions>
-                    <Button color="accent" onClick={this.handleReset}>Reset</Button>
+                    <Button color="secondary" onClick={this.handleReset}>Reset</Button>
                     <Profit value={this.profit}/>
                 </CardActions>
             </Card>
@@ -105,7 +116,7 @@ const defaultState = {
     unitPrice: 10
 }
 
-const styles = theme => ({
+const styles = {
     card: {
         margin: 16,
         maxWidth: 275
@@ -116,6 +127,6 @@ const styles = theme => ({
     switch: {
         marginTop: -6
     }
-})
+}
 
 export default withStyles(styles)(Calc)

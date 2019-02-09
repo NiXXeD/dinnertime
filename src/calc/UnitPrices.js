@@ -1,8 +1,9 @@
 import React from 'react'
-import Select from 'material-ui/Select'
-import {MenuItem} from 'material-ui/Menu'
-import {FormControl} from 'material-ui/Form'
-import Input, {InputLabel} from 'material-ui/Input'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
 
 class UnitPrices extends React.Component {
     render() {

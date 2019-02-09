@@ -1,11 +1,15 @@
 import React from 'react'
-import {withStyles} from 'material-ui/styles'
-import Card, {CardContent, CardHeader} from 'material-ui/Card'
-import Select from 'material-ui/Select'
-import {MenuItem} from 'material-ui/Menu'
-import Typography from 'material-ui/Typography'
-import Input, {InputLabel} from 'material-ui/Input'
-import {FormGroup, FormControl} from 'material-ui/Form'
+import {withStyles} from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import Typography from '@material-ui/core/Typography'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import FormGroup from '@material-ui/core/FormGroup'
 
 class Setup extends React.Component {
     state = {players: 2}
@@ -37,20 +41,20 @@ class Setup extends React.Component {
                         </FormControl>
 
                         {/* Map Size */}
-                        <Typography type="subheading" className={classes.subheading}>Map Size</Typography>
-                        <Typography type="body1">{data.mapSize}</Typography>
+                        <Typography variant="subtitle1" className={classes.subheading}>Map Size</Typography>
+                        <Typography variant="body2">{data.mapSize}</Typography>
 
                         {/* 1x Employees */}
-                        <Typography type="subheading" className={classes.subheading}>1x Employees</Typography>
-                        <Typography type="body1">{data.employees}</Typography>
+                        <Typography variant="subtitle1" className={classes.subheading}>1x Employees</Typography>
+                        <Typography variant="body2">{data.employees}</Typography>
 
                         {/* Billboards Removed */}
-                        <Typography type="subheading" className={classes.subheading}>Billboards Removed</Typography>
-                        <Typography type="body1">{data.billboards}</Typography>
+                        <Typography variant="subtitle1" className={classes.subheading}>Billboards Removed</Typography>
+                        <Typography variant="body2">{data.billboards}</Typography>
 
                         {/* Reserve */}
-                        <Typography type="subheading" className={classes.subheading}>Reserve</Typography>
-                        <Typography type="body1">{data.reserve}</Typography>
+                        <Typography variant="subtitle1" className={classes.subheading}>Reserve</Typography>
+                        <Typography variant="body2">{data.reserve}</Typography>
                     </FormGroup>
                 </CardContent>
             </Card>

@@ -1,10 +1,14 @@
 import React from 'react'
-import {withStyles} from 'material-ui/styles'
-import Card, {CardActions, CardContent, CardHeader} from 'material-ui/Card'
-import {FormGroup, FormControlLabel} from 'material-ui/Form'
-import Switch from 'material-ui/Switch'
-import Button from 'material-ui/Button'
-import TextField from 'material-ui/TextField'
+import {withStyles} from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Switch from '@material-ui/core/Switch'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
 import UnitPrices from './UnitPrices'
 import Profit from './Profit'
 
@@ -79,7 +83,7 @@ class BulkCalc extends React.Component {
                     </FormGroup>
                 </CardContent>
                 <CardActions>
-                    <Button color="accent" onClick={this.handleReset}>Reset</Button>
+                    <Button color="secondary" onClick={this.handleReset}>Reset</Button>
                     <Profit value={this.profit}/>
                 </CardActions>
             </Card>
@@ -95,7 +99,7 @@ const defaultState = {
     cfo: false
 }
 
-const styles = theme => ({
+const styles = {
     card: {
         margin: 16,
         maxWidth: 275
@@ -106,6 +110,6 @@ const styles = theme => ({
     switch: {
         marginTop: -6
     }
-})
+}
 
 export default withStyles(styles)(BulkCalc)
