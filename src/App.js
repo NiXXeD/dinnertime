@@ -17,7 +17,7 @@ const theme = createMuiTheme({
 class App extends React.Component {
     render() {
         return (
-            <BrowserRouter>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <MuiThemeProvider theme={theme}>
                     <div>
                         <Nav/>

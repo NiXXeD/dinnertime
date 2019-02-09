@@ -3,7 +3,7 @@ Food Chain Magnate: Dinnertime Calculator
 
 
 #### Example Site
-http://dinnertime.nixxed.com
+https://nixxed.github.io/dinnertime
 
 
 #### How to run
