@@ -1,6 +1,6 @@
 import React from 'react'
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
-import {BrowserRouter, Route} from 'react-router-dom'
+import {HashRouter, Route} from 'react-router-dom'
 
 import Nav from './nav/Nav'
 import Calc from './calc/Calc'
@@ -12,7 +12,6 @@ const theme = createMuiTheme({
     palette: {
         type: 'dark'
     },
-    // TODO: Remove. Workaround for unnecessary usage warning
     typography: {
         useNextVariants: true
     }
@@ -21,7 +20,7 @@ const theme = createMuiTheme({
 class App extends React.Component {
     render() {
         return (
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <HashRouter basename={process.env.PUBLIC_URL}>
                 <MuiThemeProvider theme={theme}>
                     <div>
                         <Nav/>
@@ -33,7 +32,7 @@ class App extends React.Component {
                         <Route path="/milestones" component={Milestones}/>
                     </div>
                 </MuiThemeProvider>
-            </BrowserRouter>
+            </HashRouter>
         )
     }
 }
