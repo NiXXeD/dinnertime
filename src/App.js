@@ -19,7 +19,7 @@ const theme = createMuiTheme({
 
 function App() {
     return (
-        <HashRouter basename={process.env.PUBLIC_URL}>
+        <HashRouter>
             <MuiThemeProvider theme={theme}>
                 <div>
                     <Nav/>
