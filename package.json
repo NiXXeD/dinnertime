@@ -12,14 +12,14 @@
   "dependencies": {
     "@material-ui/core": "3.9.2",
     "@material-ui/icons": "3.0.2",
-    "gh-pages": "1.2.0",
+    "gh-pages": "2.0.1",
     "react": "16.8.1",
     "react-dom": "16.8.1",
     "react-masonry-component": "6.2.1",
-    "react-router-dom": "4.2.2"
+    "react-router-dom": "4.3.1"
   },
   "devDependencies": {
-    "react-scripts": "1.1.5"
+    "react-scripts": "2.1.4"
   },
   "scripts": {
     "predeploy": "yarn build",
@@ -28,5 +28,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
