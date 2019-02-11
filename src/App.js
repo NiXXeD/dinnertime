@@ -1,5 +1,6 @@
 import React from 'react'
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
+import {createMuiTheme} from '@material-ui/core/styles'
+import {ThemeProvider} from '@material-ui/styles'
 import {HashRouter, Route} from 'react-router-dom'
 
 import Nav from './nav/Nav'
@@ -20,7 +21,7 @@ const theme = createMuiTheme({
 function App() {
     return (
         <HashRouter>
-            <MuiThemeProvider theme={theme}>
+            <ThemeProvider theme={theme}>
                 <div>
                     <Nav/>
 
@@ -30,7 +31,7 @@ function App() {
                     <Route path="/setup" component={Setup}/>
                     <Route path="/milestones" component={Milestones}/>
                 </div>
-            </MuiThemeProvider>
+            </ThemeProvider>
         </HashRouter>
     )
 }

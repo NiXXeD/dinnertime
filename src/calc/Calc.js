@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
@@ -16,8 +15,10 @@ import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
 import UnitPrices from './UnitPrices'
 import Profit from './Profit'
+import {makeStyles} from '@material-ui/styles'
 
-function Calc({classes}) {
+function Calc() {
+    const classes = useStyles()
     const [bonusItemsSold, setBonusItemsSold] = useState(defaultState.bonusItemsSold)
     const [cfo, setCfo] = useState(defaultState.cfo)
     const [garden, setGarden] = useState(defaultState.garden)
@@ -130,7 +131,7 @@ const defaultState = {
     unitPrice: 10
 }
 
-const styles = {
+const useStyles = makeStyles({
     card: {
         margin: 16,
         maxWidth: 275
@@ -141,6 +142,6 @@ const styles = {
     switch: {
         marginTop: -6
     }
-}
+})
 
-export default withStyles(styles)(Calc)
+export default Calc

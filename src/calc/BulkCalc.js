@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
@@ -11,8 +10,10 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import UnitPrices from './UnitPrices'
 import Profit from './Profit'
+import {makeStyles} from '@material-ui/styles'
 
-function BulkCalc({classes}) {
+function BulkCalc() {
+    const classes = useStyles()
     const [unitPrice, setUnitPrice] = useState(defaultState.unitPrice)
     const [normalSales, setNormalSales] = useState(defaultState.normalSales)
     const [gardenSales, setGardenSales] = useState(defaultState.gardenSales)
@@ -104,7 +105,7 @@ const defaultState = {
     cfo: false
 }
 
-const styles = {
+const useStyles = makeStyles({
     card: {
         margin: 16,
         maxWidth: 275
@@ -115,6 +116,6 @@ const styles = {
     switch: {
         marginTop: -6
     }
-}
+})
 
-export default withStyles(styles)(BulkCalc)
+export default BulkCalc

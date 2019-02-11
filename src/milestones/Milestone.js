@@ -1,13 +1,11 @@
 import React from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 
-function Milestone(props) {
-    const {classes, milestone, value} = props
+function Milestone({index, milestone, onChange, value}) {
+    const classes = useStyles()
     const {color, title, text} = milestone
 
     const handleClick = () => {
-        const {index, value, onChange} = props
-
         let nextValue
         if (value === 'available') nextValue = 'mine'
         else if (value === 'mine') nextValue = 'unavailable'
@@ -32,7 +30,7 @@ function Milestone(props) {
     )
 }
 
-const styles = {
+const useStyles = makeStyles({
     milestone: {
         margin: 8,
         width: 145,
@@ -69,6 +67,6 @@ const styles = {
         left: 4,
         bottom: 0
     }
-}
+})
 
-export default withStyles(styles)(Milestone)
+export default Milestone

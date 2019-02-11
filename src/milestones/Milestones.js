@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
@@ -8,8 +7,10 @@ import Button from '@material-ui/core/Button'
 import Masonry from 'react-masonry-component'
 import milestoneData, {localStorageKey, defaultMilestones} from './milestoneData'
 import Milestone from './Milestone'
+import {makeStyles} from '@material-ui/styles'
 
-function Milestones({classes}) {
+function Milestones() {
+    const classes = useStyles()
     const [milestones, setMilestones] = useState(() => {
         try {
             const oldStorageData = localStorage.getItem(localStorageKey)
@@ -61,11 +62,11 @@ function Milestones({classes}) {
     )
 }
 
-const styles = {
+const useStyles = makeStyles({
     card: {
         margin: 16,
         maxWidth: 850
     }
-}
+})
 
-export default withStyles(styles)(Milestones)
+export default Milestones

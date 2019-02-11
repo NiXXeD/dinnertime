@@ -1,7 +1,8 @@
 import React from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 
-function Profit({classes, value = 0}) {
+function Profit({value = 0}) {
+    const classes = useStyles()
     return (
         <div className={classes.container}>
             <div className={classes.subheader}>Profit</div>
@@ -10,7 +11,7 @@ function Profit({classes, value = 0}) {
     )
 }
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
     container: {
         marginRight: 16,
         marginBottom: 16,
@@ -28,6 +29,6 @@ const styles = theme => ({
         color: 'darkgreen',
         textAlign: 'right'
     }
-})
+}), {useTheme: true})
 
-export default withStyles(styles)(Profit)
+export default Profit

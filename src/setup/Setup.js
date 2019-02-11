@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -11,8 +10,10 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormGroup from '@material-ui/core/FormGroup'
 import playerData from './playerData'
+import {makeStyles} from '@material-ui/styles'
 
-function Setup({classes}) {
+function Setup() {
+    const classes = useStyles()
     const [players, setPlayers] = useState(2)
     const data = playerData[players]
 
@@ -66,7 +67,7 @@ function Setup({classes}) {
     )
 }
 
-const styles = {
+const useStyles = makeStyles({
     card: {
         margin: 16,
         maxWidth: 225
@@ -74,6 +75,6 @@ const styles = {
     subheading: {
         marginTop: 16
     }
-}
+})
 
-export default withStyles(styles)(Setup)
+export default Setup
