@@ -8,19 +8,19 @@ self.__precacheManifest = [
     "url": "/dinnertime/static/js/runtime~main.69834e7d.js"
   },
   {
-    "revision": "c8a1688b677863197f6f",
-    "url": "/dinnertime/static/js/main.c8a1688b.chunk.js"
+    "revision": "b40b873e2fc5dda07075",
+    "url": "/dinnertime/static/js/main.b40b873e.chunk.js"
   },
   {
     "revision": "9e62bca1b960730796d5",
     "url": "/dinnertime/static/js/2.9e62bca1.chunk.js"
   },
   {
-    "revision": "c8a1688b677863197f6f",
+    "revision": "b40b873e2fc5dda07075",
     "url": "/dinnertime/static/css/main.e48761d8.chunk.css"
   },
   {
-    "revision": "9a983668e9e7bfea38fe057806f26110",
+    "revision": "128ef2994a787ac07cad340fc8f9e4f4",
     "url": "/dinnertime/index.html"
   }
 ];
