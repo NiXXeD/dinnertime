@@ -14,7 +14,7 @@ function Milestones() {
     const [milestones, setMilestones] = useState(() => {
         try {
             const oldStorageData = localStorage.getItem(localStorageKey)
-            return JSON.parse(oldStorageData)
+            return JSON.parse(oldStorageData) || defaultMilestones
         } catch (ex) {
             console.log('Error loading local storage data: ', ex)
             localStorage.removeItem(localStorageKey)
