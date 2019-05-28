@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/dinnertime/static/css/main.5e56a34f.chunk.css",
-    "main.js": "/dinnertime/static/js/main.b6729672.chunk.js",
-    "main.js.map": "/dinnertime/static/js/main.b6729672.chunk.js.map",
+    "main.js": "/dinnertime/static/js/main.b4c1bbab.chunk.js",
+    "main.js.map": "/dinnertime/static/js/main.b4c1bbab.chunk.js.map",
     "runtime~main.js": "/dinnertime/static/js/runtime~main.79754f69.js",
     "runtime~main.js.map": "/dinnertime/static/js/runtime~main.79754f69.js.map",
     "static/js/2.2b645eb1.chunk.js": "/dinnertime/static/js/2.2b645eb1.chunk.js",
     "static/js/2.2b645eb1.chunk.js.map": "/dinnertime/static/js/2.2b645eb1.chunk.js.map",
     "index.html": "/dinnertime/index.html",
-    "precache-manifest.3167c40f511fd0aa994c7ed5bcda8a8a.js": "/dinnertime/precache-manifest.3167c40f511fd0aa994c7ed5bcda8a8a.js",
+    "precache-manifest.f31f70945dbc298edda0ff891aff7fcf.js": "/dinnertime/precache-manifest.f31f70945dbc298edda0ff891aff7fcf.js",
     "service-worker.js": "/dinnertime/service-worker.js",
     "static/css/main.5e56a34f.chunk.css.map": "/dinnertime/static/css/main.5e56a34f.chunk.css.map",
     "static/media/github.svg": "/dinnertime/static/media/github.7337e417.svg"
