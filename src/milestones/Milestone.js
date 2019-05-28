@@ -25,7 +25,7 @@ function Milestone({index, milestone, onChange, value}) {
             <div className={classes.container}>
                 <div className={classes.title}>First {title}</div>
                 <div className={classes.text}>{text}</div>
-                {maxRoundTwo && <div className={classes.maxRoundTwo}>remove after<br/>round two</div>}
+                {maxRoundTwo && <div className={classes.maxRoundTwo}>Unavailable after<br/>round two</div>}
             </div>
         </div>
     )
