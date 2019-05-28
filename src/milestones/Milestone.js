@@ -47,22 +47,24 @@ const useStyles = makeStyles({
         textAlign: 'center',
         fontWeight: 600,
         textTransform: 'uppercase',
-        marginBottom: 12
+        marginBottom: 12,
+        color: '#000'
     },
     text: {
         textAlign: 'center',
-        fontSize: 'small'
+        fontSize: 'small',
+        color: '#000'
     },
     checkmark: {
         fontSize: 'xx-large',
-        color: 'green',
+        color: '#0f0',
         position: 'absolute',
         left: 2,
         bottom: 0
     },
     x: {
         fontSize: 'xx-large',
-        color: 'red',
+        color: '#f00',
         position: 'absolute',
         left: 4,
         bottom: 0

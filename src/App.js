@@ -12,9 +12,6 @@ import Milestones from './milestones/Milestones'
 const theme = createMuiTheme({
     palette: {
         type: 'dark'
-    },
-    typography: {
-        useNextVariants: true
     }
 })
 
