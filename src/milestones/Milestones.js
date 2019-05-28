@@ -14,6 +14,12 @@ import Radio from '@material-ui/core/Radio'
 
 function Milestones() {
     const classes = useStyles()
+
+    const getDataArray = (type = milestoneType) => {
+        const data = type === 'original' ? originalMilestoneData : alternateMilestoneData
+        return data.map(() => 'available')
+    }
+
     const [{milestones, milestoneType}, setMilestones] = useState(() => {
         try {
             const oldStorageData = localStorage.getItem(localStorageKey)
@@ -45,11 +51,6 @@ function Milestones() {
             milestoneType
         })
         localStorage.setItem(localStorageKey, newValue)
-    }
-
-    const getDataArray = (type = milestoneType) => {
-        const data = type === 'original' ? originalMilestoneData : alternateMilestoneData
-        return data.map(() => 'available')
     }
 
     const updateMilestones = (index, value) => {

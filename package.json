@@ -1,6 +1,6 @@
 {
   "name": "dinnertime",
-  "description": "A small calculator for Food Chain Magnate's Dinnertime phase.",
+  "description": "A helper app for the board game Food Chain Magnate.",
   "homepage": "https://nixxed.github.io/dinnertime",
   "version": "2.0.0",
   "author": "Andy Christianson",
