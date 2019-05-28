@@ -3,7 +3,7 @@ import {makeStyles} from '@material-ui/styles'
 
 function Milestone({index, milestone, onChange, value}) {
     const classes = useStyles()
-    const {color, title, text} = milestone
+    const {color, title, text, maxRoundTwo} = milestone
 
     const handleClick = () => {
         let nextValue
@@ -25,6 +25,7 @@ function Milestone({index, milestone, onChange, value}) {
             <div className={classes.container}>
                 <div className={classes.title}>First {title}</div>
                 <div className={classes.text}>{text}</div>
+                {maxRoundTwo && <div className={classes.maxRoundTwo}>remove after<br/>round two</div>}
             </div>
         </div>
     )
@@ -33,8 +34,8 @@ function Milestone({index, milestone, onChange, value}) {
 const useStyles = makeStyles({
     milestone: {
         margin: 8,
-        width: 145,
-        height: 145,
+        width: 155,
+        height: 155,
         userSelect: 'none',
         cursor: 'pointer',
         border: '1px solid black',
@@ -54,6 +55,15 @@ const useStyles = makeStyles({
         textAlign: 'center',
         fontSize: 'small',
         color: '#000'
+    },
+    maxRoundTwo: {
+        width: 145,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 'small',
+        color: '#f00',
+        position: 'absolute',
+        bottom: 4
     },
     checkmark: {
         fontSize: 'xx-large',

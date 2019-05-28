@@ -1,4 +1,4 @@
-const milestoneData = [
+export const originalMilestoneData = [
     {color: '#AF95C2', title: 'to hire 3 people in 1 turn', text: '+2 Management Trainees'},
     {color: '#BDB6B3', title: 'to train someone', text: '$15 discount on salaries'},
     {color: '#98C2C9', title: 'billboard placed', text: 'No salaries for marketeers; Eternal marketing.'},
@@ -18,7 +18,22 @@ const milestoneData = [
     {color: '#BDB6B3', title: 'to pay $20 or more in salaries', text: 'May use multiple trainers on the same person'},
     {color: '#98C2C9', title: 'radio campaign', text: 'Your radios market 2 goods per turn instead of 1'}
 ]
-
-export default milestoneData
-export const localStorageKey = 'milestones'
-export const defaultMilestones = milestoneData.map(() => 'available')
+export const alternateMilestoneData = [
+    {color: '#98C2C9', title: 'marketer played', text: '$5 for every good marketed; Range -2 for dinnertime', maxRoundTwo: true},
+    {color: '#98C2C9', title: 'marketing trainee played', text: 'Get free Kitchen Trainee and Errand Boy'},
+    {color: '#98C2C9', title: 'campaign manager played', text: 'May place second billboard advertising same product and duration (once)'},
+    {color: '#98C2C9', title: 'brand manager played', text: 'May place 2 different goods on plane; choose priority of goods when placed'},
+    {color: '#98C2C9', title: 'brand director played', text: 'Your radios are permanent'},
+    {color: '#EAA791', title: 'burger sold', text: 'CEO always has 4 slots'},
+    {color: '#EAA791', title: 'pizza sold', text: 'Place radio tower on tile of sale advertising pizza for two turns'},
+    {color: '#EAA791', title: 'lemonade sold', text: 'Any employee can be trained on the job, preserving color'},
+    {color: '#EAA791', title: 'beer sold', text: 'May pay salary with food or drink'},
+    {color: '#EAA791', title: 'coke sold', text: 'Freezer - may store up to 10 items'},
+    {color: '#BDB6B3', title: 'recruiting girl played', text: 'Get a free executive vice president; Pay him no salary', maxRoundTwo: true},
+    {color: '#BDB6B3', title: 'trainer played', text: 'Get a free trainer; No longer needs to fire employees if broke', maxRoundTwo: true},
+    {color: '#BDB6B3', title: 'discount manager played', text: 'If you discount by $3 or more, remove $100 from the bank'},
+    {color: '#AF95C2', title: 'house built', text: 'May stack trainers'},
+    {color: '#934a34', title: 'new restaurant built', text: 'Place permanent mailbox in restaurant area'},
+    {color: '#AF95C2', title: 'waitress played', text: 'Salaries are $3 each'},
+    {color: '#A9CB94', title: 'cart operator played', text: 'Double amount of drinks hauled by cart/truck/zeppelin'},
+]
